@@ -17,8 +17,8 @@ A human still reads the flags and writes the brief. The agent surfaces what to l
 
 ```bash
 python3 agent/make_mock_data.py     # writes data/mock_ads.csv (deterministic)
-python3 agent/creative_report.py    # writes web/report-data.js
-open web/index.html                 # or double-click it
+python3 agent/creative_report.py    # writes docs/report-data.js
+open docs/index.html                 # or double-click it
 python3 -m unittest discover -s tests -v
 ```
 
@@ -29,7 +29,7 @@ Requires Python 3.9+. No third-party packages.
 ```
 agent/make_mock_data.py    mock weekly ad-level data, with one planted fatigue case
 agent/creative_report.py   the agent: parse, roll up, flag, write report
-web/                       static dashboard (index.html, app.js, style.css)
+docs/                       static dashboard (index.html, app.js, style.css)
 data/mock_ads.csv          generated input
 tests/                     unit and end-to-end tests
 ```

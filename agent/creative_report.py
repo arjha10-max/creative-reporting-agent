@@ -27,7 +27,7 @@ C2T_DROP_THRESHOLD = 0.15   # click-to-trial down 15%+ week over week
 
 ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_INPUT = ROOT / "data" / "mock_ads.csv"
-DEFAULT_OUTPUT = ROOT / "web" / "report-data.js"
+DEFAULT_OUTPUT = ROOT / "docs" / "report-data.js"
 
 
 def parse_ad_name(name: str) -> dict:
