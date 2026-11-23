@@ -7,7 +7,7 @@ Steps:
    Names that break the convention are reported, not silently dropped.
 3. Roll up hook rate, CTR, click-to-trial, trial CPA and frequency by each tag.
 4. Flag fatigue: a tag whose frequency rose week over week while click-to-trial fell.
-5. Write web/report-data.js for the dashboard.
+5. Write docs/report-data.js for the dashboard.
 
 Rules-based on purpose. The flags are a prompt for a human to look, not a decision.
 """
