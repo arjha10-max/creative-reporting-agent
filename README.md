@@ -1,0 +1,58 @@
+# Creative reporting agent (demo)
+
+A small, honest mock-up of the creative reporting piece of a performance media role.
+It runs on mock data. It is a demo of the logic and the dashboard, not a live integration.
+
+## What it does
+
+1. **Naming convention.** Every ad name must follow `CONCEPT_HOOK_FORMAT_AUDIENCE_VARIANT`.
+   Names that break it are listed in the dashboard, not dropped silently.
+2. **Weekly rollup by tag.** Hook rate, CTR, click-to-trial, trial CPA and frequency, by concept, hook, format and audience, with week-over-week change.
+3. **Fatigue flag.** Frequency up 15%+ week over week while click-to-trial falls 15%+. Checked per tag and per ad, so one fatigued ad is not averaged away.
+4. **Dashboard.** A static page (plain HTML/CSS/JS, no build step) that shows the alerts, the tag tables and the guardrail errors.
+
+A human still reads the flags and writes the brief. The agent surfaces what to look at.
+
+## Run it
+
+```bash
+python3 agent/make_mock_data.py     # writes data/mock_ads.csv (deterministic)
+python3 agent/creative_report.py    # writes web/report-data.js
+open web/index.html                 # or double-click it
+python3 -m unittest discover -s tests -v
+```
+
+Requires Python 3.9+. No third-party packages.
+
+## Layout
+
+```
+agent/make_mock_data.py    mock weekly ad-level data, with one planted fatigue case
+agent/creative_report.py   the agent: parse, roll up, flag, write report
+web/                       static dashboard (index.html, app.js, style.css)
+data/mock_ads.csv          generated input
+tests/                     unit and end-to-end tests
+```
+
+## Built vs next
+
+| Area | Status in this demo |
+|---|---|
+| Naming-convention check | Built (flags malformed names) |
+| Weekly rollup by tag | Built, on mock data |
+| Fatigue rule (frequency up, click-to-trial down) | Built, rules-based |
+| Dashboard | Built, static |
+| Live pulls from ad platforms (Meta, Google, DV360, TikTok) | **Next** |
+| Enforcing the naming convention at launch (trafficking template) | **Next** |
+| LLM step that drafts the weekly narrative for the brief writer | **Next** |
+| Alerting to Slack or email on a schedule | **Next** |
+| Hook rate and CTR thresholds tuned against historical tests | **Next** |
+
+The demo does not claim to score creative quality or pick winners. It finds where to look.
+
+## Design choices
+
+- **Rules, not a model.** The flag is a transparent threshold that a planner can read and argue with. A model can come later, once there is enough history to justify it.
+- **Per-ad check as well as per-tag.** In the mock data, the fatigued ad's tag bucket also holds healthy ads, so the tag-level rollup dilutes the signal. The per-ad check keeps it visible.
+- **Guardrails report, they do not drop.** A bad name shows up as a fix item, because untagged spend is the usual reason creative reporting breaks.
+- **Static dashboard.** It opens from disk with no server, so it is easy to run in an interview.

@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Creative Reporting Agent (demo)</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <div>
+      <h1>Creative reporting agent</h1>
+      <p class="sub">Demo on mock data · weekly rollup by creative tag · fatigue alerts</p>
+    </div>
+    <span class="badge">MOCK DATA</span>
+  </header>
+
+  <main>
+    <section class="cards" id="summary"></section>
+
+    <section>
+      <h2>Fatigue alerts</h2>
+      <p class="hint">Flag rule: frequency up 15%+ week over week while click-to-trial falls 15%+. A human decides what to do.</p>
+      <div id="alerts"></div>
+    </section>
+
+    <section>
+      <h2>Performance by tag</h2>
+      <div class="tabs" id="tabs" role="tablist"></div>
+      <div class="table-wrap"><table id="table"></table></div>
+    </section>
+
+    <section>
+      <h2>Naming-convention guardrail</h2>
+      <p class="hint">Names must follow CONCEPT_HOOK_FORMAT_AUDIENCE_VARIANT. Anything that breaks it is listed here, not dropped.</p>
+      <div id="errors"></div>
+    </section>
+
+    <section class="scope">
+      <h2>What this build is</h2>
+      <p id="scope"></p>
+    </section>
+  </main>
+
+  <script src="report-data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
