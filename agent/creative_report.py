@@ -118,8 +118,8 @@ def build_report(rows, errors):
                         "frequency": {"prior": old["frequency"], "latest": cur["frequency"]},
                         "click_to_trial": {"prior": old["click_to_trial"], "latest": cur["click_to_trial"]},
                         "message": (
-                            f"{dim} = {value}: frequency rose {old['frequency']} to {cur['frequency']} "
-                            f"while click-to-trial fell {old['click_to_trial']} to {cur['click_to_trial']}. "
+                            f"{dim} = {value}: frequency rose {old['frequency']:.2f} to {cur['frequency']:.2f} "
+                            f"while click-to-trial fell {old['click_to_trial'] * 100:.2f}% to {cur['click_to_trial'] * 100:.2f}%. "
                             "Check creative fatigue before adding spend."
                         ),
                     })

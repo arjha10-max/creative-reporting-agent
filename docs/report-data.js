@@ -26,7 +26,7 @@ window.REPORT_DATA = {
         "prior": 0.0568,
         "latest": 0.0475
       },
-      "message": "ad_name = Cashback_Creator_Video15_GenZ_v1: frequency rose 3.7769 to 4.3697 while click-to-trial fell 0.0568 to 0.0475. Check creative fatigue before adding spend."
+      "message": "ad_name = Cashback_Creator_Video15_GenZ_v1: frequency rose 3.78 to 4.37 while click-to-trial fell 5.68% to 4.75%. Check creative fatigue before adding spend."
     }
   ],
   "tag_tables": {
@@ -1185,7 +1185,7 @@ window.REPORT_DATA = {
       "priority": "high",
       "title": "Refresh Cashback_Creator_Video15_GenZ_v1",
       "action": "Cap or pause this creative, and brief a new version that keeps its hook and format. Test it on the same audience.",
-      "why": "ad_name = Cashback_Creator_Video15_GenZ_v1: frequency rose 3.7769 to 4.3697 while click-to-trial fell 0.0568 to 0.0475. Check creative fatigue before adding spend."
+      "why": "ad_name = Cashback_Creator_Video15_GenZ_v1: frequency rose 3.78 to 4.37 while click-to-trial fell 5.68% to 4.75%. Check creative fatigue before adding spend."
     },
     {
       "priority": "high",
