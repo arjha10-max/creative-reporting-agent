@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Creative Reporting: 90-day one-pager (demo)</title>
-  <link rel="stylesheet" href="dashboard-90d.css?v=4">
+  <link rel="stylesheet" href="dashboard-90d.css?v=5">
 </head>
 <body>
   <header>
@@ -19,9 +19,27 @@
     <section class="kpis" id="kpis"></section>
 
     <section>
+      <h2>How the numbers are calculated</h2>
+      <div id="formulas"></div>
+    </section>
+
+    <section>
+      <h2>Platform and campaign</h2>
+      <p class="hint">Google (Non-brand and Brand) against Meta. Index = cost per paying customer ÷ 90-day benchmark (below 1 is cheaper).</p>
+      <div id="platforms"></div>
+    </section>
+
+    <section>
+      <h2>Creative concept breakdown</h2>
+      <p class="hint">Concept = Google ad group or Meta creative type. Ranked by cost per paying customer.</p>
+      <div id="concepts"></div>
+      <div id="concept-chart" class="mt"></div>
+    </section>
+
+    <section>
       <h2>Creative scorecard</h2>
-      <p class="hint">Each creative against the 90-day benchmark. Index = its trial CPA ÷ benchmark trial CPA (below 1 is cheaper).</p>
-      <div class="table-wrap"><table id="scorecard"></table></div>
+      <p class="hint">Each creative against the 90-day benchmark. Verdicts: Pause, Refresh, Scale, Keep, Too little data.</p>
+      <div id="scorecard"></div>
     </section>
 
     <section>
@@ -30,7 +48,7 @@
     </section>
 
     <section>
-      <h2>Where the money works, last 90 days</h2>
+      <h2>Hook, format and audience, last 90 days</h2>
       <p class="hint">Trial CPA by tag family. Green is the cheapest in each chart.</p>
       <div class="chart-grid three" id="tags"></div>
     </section>
@@ -61,7 +79,7 @@
     </section>
   </main>
 
-  <script src="report-90d.js?v=4"></script>
-  <script src="dashboard-90d.js?v=4"></script>
+  <script src="report-90d.js?v=5"></script>
+  <script src="dashboard-90d.js?v=5"></script>
 </body>
 </html>

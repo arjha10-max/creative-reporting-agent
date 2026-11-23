@@ -20,7 +20,7 @@ from collections import defaultdict
 from pathlib import Path
 
 TAG_DIMS = ("concept", "hook", "format", "audience")
-SUM_FIELDS = ("spend", "impressions", "reach", "three_sec_views", "clicks", "trials")
+SUM_FIELDS = ("spend", "impressions", "reach", "three_sec_views", "clicks", "trials", "paying_customers")
 
 FREQ_RISE_THRESHOLD = 0.15  # frequency up 15%+ week over week
 C2T_DROP_THRESHOLD = 0.15   # click-to-trial down 15%+ week over week
@@ -45,14 +45,24 @@ def safe_div(num, den):
 
 
 def kpis(t) -> dict:
+    """Blended KPIs for any group of rows. Formulas are listed in FORMULAS and shown on the dashboard."""
     return {
         "spend": round(t["spend"], 2),
-        "hook_rate": safe_div(t["three_sec_views"], t["impressions"]),
+        # No 3-second metric (zero views) means no hook rate, not a 0% hook rate.
+        "hook_rate": safe_div(t["three_sec_views"], t["impressions"]) if t["three_sec_views"] else None,
         "ctr": safe_div(t["clicks"], t["impressions"]),
         "click_to_trial": safe_div(t["trials"], t["clicks"]),
         "trial_cpa": safe_div(t["spend"], t["trials"]),
+        "cost_per_paying_customer": safe_div(t["spend"], t["paying_customers"]),
         "frequency": safe_div(t["impressions"], t["reach"]),
     }
+
+
+FORMULAS = [
+    {"name": "Cost per trial", "formula": "Spend ÷ Trials"},
+    {"name": "Trial-to-paid rate", "formula": "Paying customers ÷ Trials"},
+    {"name": "Cost per paying customer", "formula": "Spend ÷ Paying customers  (= cost per trial ÷ trial-to-paid rate)"},
+]
 
 
 def pct_change(new, old):
@@ -73,9 +83,15 @@ def load_rows(path: Path):
                     seen_bad.add(raw["ad_name"])
                     errors.append({"first_line": line_no, "ad_name": raw["ad_name"], "problem": str(e)})
                 continue
-            row = {"week": raw["week"], "ad_name": raw["ad_name"], **tags}
+            row = {
+                "week": raw["week"],
+                "ad_name": raw["ad_name"],
+                "platform": raw.get("platform") or "Unknown",
+                "campaign": raw.get("campaign") or "Unknown",
+                **tags,
+            }
             for field in SUM_FIELDS:
-                row[field] = float(raw[field])
+                row[field] = float(raw.get(field) or 0)
             rows.append(row)
     return rows, errors
 
@@ -133,7 +149,8 @@ def build_report(rows, errors):
 
     alerts.sort(key=lambda a: -(a["frequency"]["latest"] - a["frequency"]["prior"]))
     raw_rows = [
-        {"week": r["week"], "ad_name": r["ad_name"], **{f: r[f] for f in SUM_FIELDS}}
+        {"week": r["week"], "ad_name": r["ad_name"], "platform": r["platform"], "campaign": r["campaign"],
+         **{f: r[f] for f in SUM_FIELDS}}
         for r in sorted(rows, key=lambda r: (r["ad_name"], r["week"]))
     ]
     return {
@@ -314,9 +331,13 @@ def window_view(report: dict, rows: list) -> dict:
         scorecard.append({
             "value": name,
             "tags": ad["tags"],
+            "platform": ad_rows[0]["platform"],
+            "campaign": ad_rows[0]["campaign"],
             "spend": round(t["spend"], 2),
             "trials": round(t["trials"]),
+            "paying_customers": round(t["paying_customers"]),
             "trial_cpa": k["trial_cpa"],
+            "cost_per_paying_customer": k["cost_per_paying_customer"],
             "index": idx,
             "hook_rate": k["hook_rate"],
             "click_to_trial": k["click_to_trial"],
@@ -387,6 +408,59 @@ def window_view(report: dict, rows: list) -> dict:
     return report
 
 
+def _group(rows, key_fn):
+    agg, ads = defaultdict(lambda: defaultdict(float)), defaultdict(set)
+    for r in rows:
+        k = key_fn(r)
+        for f in SUM_FIELDS:
+            agg[k][f] += r[f]
+        ads[k].add(r["ad_name"])
+    return agg, ads
+
+
+def platform_view(report: dict, rows: list) -> dict:
+    """Platform, campaign and concept breakdowns, with cost per paying customer and an index against the 90-day benchmark."""
+    total = _sum(rows)
+    bench = kpis(total)
+    bench_cpp = bench["cost_per_paying_customer"]
+
+    def line(labels, t, ad_count):
+        k = kpis(t)
+        cpp = k["cost_per_paying_customer"]
+        return {
+            **labels,
+            "ads": ad_count,
+            "spend": k["spend"],
+            "share_of_spend": safe_div(t["spend"], total["spend"]),
+            "trials": round(t["trials"]),
+            "paying_customers": round(t["paying_customers"]),
+            "trial_cpa": k["trial_cpa"],
+            "trial_to_paid": safe_div(t["paying_customers"], t["trials"]),
+            "cost_per_paying_customer": cpp,
+            "index": round(cpp / bench_cpp, 2) if cpp and bench_cpp else None,
+        }
+
+    agg, ads = _group(rows, lambda r: r["platform"])
+    platforms = sorted((line({"platform": p}, agg[p], len(ads[p])) for p in agg),
+                       key=lambda e: e["platform"])
+
+    agg, ads = _group(rows, lambda r: (r["platform"], r["campaign"]))
+    campaigns = sorted((line({"platform": p, "campaign": c}, agg[(p, c)], len(ads[(p, c)])) for p, c in agg),
+                       key=lambda e: (e["platform"], e["campaign"]))
+
+    agg, ads = _group(rows, lambda r: (r["platform"], r["concept"]))
+    concepts = [line({"platform": p, "concept": c}, agg[(p, c)], len(ads[(p, c)])) for p, c in agg]
+    concepts.sort(key=lambda e: (e["cost_per_paying_customer"] is None, e["cost_per_paying_customer"] or 0))
+
+    report["window"]["benchmark"]["paying_customers"] = round(total["paying_customers"])
+    report["window"]["benchmark"]["trials"] = round(total["trials"])
+    report["formulas"] = FORMULAS
+    report["platforms"] = platforms
+    report["campaigns"] = campaigns
+    report["concepts"] = concepts
+    return report
+
+
 def write_js(report: dict, path: Path):
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text("window.REPORT_DATA = " + json.dumps(report, indent=2) + ";\n")
@@ -399,7 +473,7 @@ def main():
     args = ap.parse_args()
 
     rows, errors = load_rows(args.input)
-    report = window_view(enrich(build_report(rows, errors), rows), rows)
+    report = platform_view(window_view(enrich(build_report(rows, errors), rows), rows), rows)
     write_js(report, args.output)
     print(f"Weeks {report['weeks'][0]}..{report['latest_week']} | ads {report['ad_count']} | "
           f"alerts {len(report['alerts'])} | parse errors {len(errors)}")

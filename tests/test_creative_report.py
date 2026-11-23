@@ -54,11 +54,11 @@ class EndToEnd(unittest.TestCase):
 
     def test_planted_fatigue_is_flagged_at_ad_level(self):
         flagged = [a["value"] for a in self.report["alerts"] if a["dimension"] == "ad_name"]
-        self.assertEqual(flagged, ["Cashback_Creator_Video15_GenZ_v1"])
+        self.assertEqual(flagged, ["UGC_Problem_Video15_GenZ_v1"])
 
     def test_healthy_ads_are_not_flagged(self):
         flagged = [a["value"] for a in self.report["alerts"]]
-        self.assertNotIn("Travel_Creator_Video6_GenZ_v3", flagged)
+        self.assertNotIn("AISearchVisibility_Keyword_RSA_Marketer_v1", flagged)
 
     def test_needs_two_weeks(self):
         rows, errors = load_rows(DATA)

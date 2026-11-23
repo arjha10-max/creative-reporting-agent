@@ -109,3 +109,13 @@ td.good { color: var(--good); font-weight: 600; }
 .ok { color: var(--good); margin: 0; }
 
 .scope .notes { margin: 0; padding-left: 18px; color: var(--muted); }
+
+.card-primary { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent) inset; }
+.card-primary .card-value { color: var(--accent); }
+.formulas { margin: 0 0 8px; padding-left: 18px; }
+.formulas li { margin: 2px 0; }
+.example { margin: 0; font-weight: 600; }
+.mt { margin-top: 12px; }
+h3 { margin-top: 14px; }
+td.strong { font-weight: 600; }
+th, td { font-variant-numeric: tabular-nums; }

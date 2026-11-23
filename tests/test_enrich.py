@@ -6,7 +6,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "agent"))
 
-from creative_report import build_report, enrich, load_rows, window_view  # noqa: E402
+from creative_report import build_report, enrich, load_rows, platform_view, window_view  # noqa: E402
 
 DATA = ROOT / "data" / "mock_ads.csv"
 
@@ -15,7 +15,7 @@ class Enrich(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         rows, errors = load_rows(DATA)
-        cls.report = window_view(enrich(build_report(rows, errors), rows), rows)
+        cls.report = platform_view(window_view(enrich(build_report(rows, errors), rows), rows), rows)
 
     def test_trend_has_one_point_per_week(self):
         self.assertEqual(len(self.report["trend"]), 13)
@@ -23,9 +23,25 @@ class Enrich(unittest.TestCase):
 
     def test_scorecard_covers_every_creative_with_a_verdict(self):
         verdicts = {s["value"]: s["verdict"] for s in self.report["scorecard"]}
-        self.assertEqual(len(verdicts), 9)
-        self.assertEqual(verdicts["Cashback_Creator_Video15_GenZ_v1"], "Refresh")
-        self.assertEqual(verdicts["Cashback_Question_Video6_GenZ_v2"], "Scale")
+        self.assertEqual(len(verdicts), 13)
+        self.assertEqual(verdicts["UGC_Problem_Video15_GenZ_v1"], "Pause")
+        self.assertEqual(verdicts["AISearchVisibility_Keyword_RSA_Marketer_v1"], "Scale")
+
+    def test_cost_per_paying_customer_is_spend_over_paying_customers(self):
+        b = self.report["window"]["benchmark"]
+        self.assertAlmostEqual(b["cost_per_paying_customer"], b["spend"] / b["paying_customers"], places=2)
+
+    def test_platform_and_concept_breakdowns(self):
+        platforms = {p["platform"] for p in self.report["platforms"]}
+        self.assertEqual(platforms, {"Google", "Meta"})
+        concepts = {c["concept"] for c in self.report["concepts"]}
+        for expected in ("AISearchVisibility", "SEOAutomation", "AgencyUseCase", "LocalSMB",
+                         "AdsUseCase", "ComparisonAlt", "Brand", "UGC", "FounderStory", "Screenshots"):
+            self.assertIn(expected, concepts)
+
+    def test_google_has_no_hook_rate(self):
+        google = [a for a in self.report["ads"] if a["tags"] and a["latest"]["hook_rate"] is None]
+        self.assertTrue(google)
 
     def test_combos_are_ranked_by_trial_cpa(self):
         cpas = [c["trial_cpa"] for c in self.report["combos"]]
@@ -38,7 +54,7 @@ class Enrich(unittest.TestCase):
 
     def test_fatigued_ad_gets_a_high_priority_refresh(self):
         titles = [r["title"] for r in self.report["recommendations"] if r["priority"] == "high"]
-        self.assertIn("Refresh Cashback_Creator_Video15_GenZ_v1", titles)
+        self.assertIn("Refresh UGC_Problem_Video15_GenZ_v1", titles)
 
     def test_untagged_names_get_a_fix_recommendation(self):
         titles = [r["title"] for r in self.report["recommendations"]]

@@ -1,131 +1,183 @@
-week,ad_name,spend,impressions,reach,three_sec_views,clicks,trials
-2026-W34,Cashback_Creator_Video15_GenZ_v1,574.77,60502,34598,20863,1074,95
-2026-W35,Cashback_Creator_Video15_GenZ_v1,593.32,62455,33900,20636,1096,98
-2026-W36,Cashback_Creator_Video15_GenZ_v1,594.0,62526,34726,21450,1094,97
-2026-W37,Cashback_Creator_Video15_GenZ_v1,622.98,65576,37053,21636,1187,109
-2026-W38,Cashback_Creator_Video15_GenZ_v1,650.11,68433,37572,23906,1220,108
-2026-W39,Cashback_Creator_Video15_GenZ_v1,649.07,68324,38908,23375,1200,110
-2026-W40,Cashback_Creator_Video15_GenZ_v1,684.99,72105,39514,24337,1301,120
-2026-W41,Cashback_Creator_Video15_GenZ_v1,691.85,72827,39675,24876,1320,121
-2026-W42,Cashback_Creator_Video15_GenZ_v1,715.48,75313,43013,24961,1334,118
-2026-W43,Cashback_Creator_Video15_GenZ_v1,712.29,74978,35564,25286,1132,82
-2026-W44,Cashback_Creator_Video15_GenZ_v1,735.23,77392,30388,26547,992,59
-2026-W45,Cashback_Creator_Video15_GenZ_v1,763.06,80323,26344,27112,900,41
-2026-W46,Cashback_Creator_Video15_GenZ_v1,797.97,83997,22317,29146,792,30
-2026-W34,Cashback_Creator_Static_Millennials_v1,365.96,45745,31001,9924,534,37
-2026-W35,Cashback_Creator_Static_Millennials_v1,364.37,45546,29285,10114,559,39
-2026-W36,Cashback_Creator_Static_Millennials_v1,379.21,47401,30229,10270,567,39
-2026-W37,Cashback_Creator_Static_Millennials_v1,393.84,49231,32325,10765,594,43
-2026-W38,Cashback_Creator_Static_Millennials_v1,396.41,49551,30843,10605,595,41
-2026-W39,Cashback_Creator_Static_Millennials_v1,404.3,50538,31844,10827,617,43
-2026-W40,Cashback_Creator_Static_Millennials_v1,421.78,52723,32200,11850,634,46
-2026-W41,Cashback_Creator_Static_Millennials_v1,422.83,52854,32500,11465,641,45
-2026-W42,Cashback_Creator_Static_Millennials_v1,450.18,56272,35565,12717,673,47
-2026-W43,Cashback_Creator_Static_Millennials_v1,467.51,58439,36257,13175,701,48
-2026-W44,Cashback_Creator_Static_Millennials_v1,478.4,59801,36686,12882,724,51
-2026-W45,Cashback_Creator_Static_Millennials_v1,486.34,60793,36426,12974,742,52
-2026-W46,Cashback_Creator_Static_Millennials_v1,484.43,60554,37114,13587,745,53
-2026-W34,Cashback_Question_Video6_GenZ_v2,462.59,51399,33000,20550,1104,91
-2026-W35,Cashback_Question_Video6_GenZ_v2,481.63,53515,33994,21452,1141,93
-2026-W36,Cashback_Question_Video6_GenZ_v2,495.34,55038,33624,22462,1140,93
-2026-W37,Cashback_Question_Video6_GenZ_v2,501.3,55700,33719,22579,1186,93
-2026-W38,Cashback_Question_Video6_GenZ_v2,539.73,59970,35719,24029,1255,100
-2026-W39,Cashback_Question_Video6_GenZ_v2,529.31,58812,35351,23708,1242,98
-2026-W40,Cashback_Question_Video6_GenZ_v2,538.03,59781,34973,25039,1235,101
-2026-W41,Cashback_Question_Video6_GenZ_v2,551.7,61300,36378,24578,1300,102
-2026-W42,Cashback_Question_Video6_GenZ_v2,595.48,66165,38127,27628,1387,113
-2026-W43,Cashback_Question_Video6_GenZ_v2,583.32,64813,38085,26521,1355,108
-2026-W44,Cashback_Question_Video6_GenZ_v2,616.76,68529,38536,27933,1481,116
-2026-W45,Cashback_Question_Video6_GenZ_v2,616.44,68493,37747,27996,1417,111
-2026-W46,Cashback_Question_Video6_GenZ_v2,633.5,70389,39808,28761,1456,119
-2026-W34,Travel_Stat_Carousel_Millennials_v1,291.18,38824,27648,7129,416,47
-2026-W35,Travel_Stat_Carousel_Millennials_v1,301.81,40241,27749,7237,452,49
-2026-W36,Travel_Stat_Carousel_Millennials_v1,296.91,39588,27888,7333,424,46
-2026-W37,Travel_Stat_Carousel_Millennials_v1,306.27,40836,27845,7552,448,49
-2026-W38,Travel_Stat_Carousel_Millennials_v1,328.69,43825,29999,7792,488,53
-2026-W39,Travel_Stat_Carousel_Millennials_v1,336.97,44929,30419,7872,495,55
-2026-W40,Travel_Stat_Carousel_Millennials_v1,338.0,45066,30363,8336,506,55
-2026-W41,Travel_Stat_Carousel_Millennials_v1,336.16,44822,30496,7940,496,55
-2026-W42,Travel_Stat_Carousel_Millennials_v1,345.34,46045,29756,8348,499,55
-2026-W43,Travel_Stat_Carousel_Millennials_v1,360.2,48026,31315,8491,529,60
-2026-W44,Travel_Stat_Carousel_Millennials_v1,375.31,50041,33012,8899,547,61
-2026-W45,Travel_Stat_Carousel_Millennials_v1,374.87,49983,31685,9266,536,59
-2026-W46,Travel_Stat_Carousel_Millennials_v1,399.14,53218,34832,9828,575,62
-2026-W34,Travel_Problem_Video15_Families_v1,356.46,41937,24120,12833,583,57
-2026-W35,Travel_Problem_Video15_Families_v1,363.34,42746,24730,12445,616,62
-2026-W36,Travel_Problem_Video15_Families_v1,376.44,44287,25851,12995,626,64
-2026-W37,Travel_Problem_Video15_Families_v1,371.1,43659,25536,13180,613,60
-2026-W38,Travel_Problem_Video15_Families_v1,395.42,46520,26788,13946,657,65
-2026-W39,Travel_Problem_Video15_Families_v1,410.52,48297,26507,14295,660,66
-2026-W40,Travel_Problem_Video15_Families_v1,398.98,46939,25631,14285,663,65
-2026-W41,Travel_Problem_Video15_Families_v1,422.99,49764,27477,15272,676,66
-2026-W42,Travel_Problem_Video15_Families_v1,442.61,52072,28284,15292,744,75
-2026-W43,Travel_Problem_Video15_Families_v1,432.7,50906,27792,15602,730,74
-2026-W44,Travel_Problem_Video15_Families_v1,463.89,54576,29702,16648,753,73
-2026-W45,Travel_Problem_Video15_Families_v1,474.19,55787,29731,17168,787,77
-2026-W46,Travel_Problem_Video15_Families_v1,484.33,56980,29095,16607,813,83
-2026-W34,Travel_Creator_Video6_GenZ_v3,447.87,48681,32784,18406,849,52
-2026-W35,Travel_Creator_Video6_GenZ_v3,463.33,50362,33714,19050,871,51
-2026-W36,Travel_Creator_Video6_GenZ_v3,478.17,51975,34546,19006,900,54
-2026-W37,Travel_Creator_Video6_GenZ_v3,489.87,53247,35037,19498,879,52
-2026-W38,Travel_Creator_Video6_GenZ_v3,505.4,54935,34255,20204,922,56
-2026-W39,Travel_Creator_Video6_GenZ_v3,522.5,56794,35981,21607,991,58
-2026-W40,Travel_Creator_Video6_GenZ_v3,511.04,55548,33992,20472,931,55
-2026-W41,Travel_Creator_Video6_GenZ_v3,541.66,58876,37098,21634,1007,60
-2026-W42,Travel_Creator_Video6_GenZ_v3,550.1,59794,37461,22689,1029,60
-2026-W43,Travel_Creator_Video6_GenZ_v3,562.13,61101,36885,22423,1054,64
-2026-W44,Travel_Creator_Video6_GenZ_v3,559.27,60790,36483,22962,1023,61
-2026-W45,Travel_Creator_Video6_GenZ_v3,595.07,64682,39319,23792,1087,65
-2026-W46,Travel_Creator_Video6_GenZ_v3,593.21,64480,39259,24111,1091,67
-2026-W34,Savings_Question_Static_Families_v2,236.58,33798,25819,4918,334,40
-2026-W35,Savings_Question_Static_Families_v2,234.89,33555,25664,5023,337,41
-2026-W36,Savings_Question_Static_Families_v2,244.01,34859,26748,5322,348,43
-2026-W37,Savings_Question_Static_Families_v2,246.8,35257,27004,5236,353,43
-2026-W38,Savings_Question_Static_Families_v2,263.66,37666,27446,5548,381,45
-2026-W39,Savings_Question_Static_Families_v2,258.07,36867,27429,5388,368,45
-2026-W40,Savings_Question_Static_Families_v2,271.18,38740,27896,5809,380,46
-2026-W41,Savings_Question_Static_Families_v2,275.22,39317,28003,5993,382,46
-2026-W42,Savings_Question_Static_Families_v2,279.68,39954,28586,6000,392,48
-2026-W43,Savings_Question_Static_Families_v2,285.45,40779,29218,6227,416,50
-2026-W44,Savings_Question_Static_Families_v2,303.32,43331,29440,6652,436,54
-2026-W45,Savings_Question_Static_Families_v2,309.31,44187,30224,6647,442,54
-2026-W46,Savings_Question_Static_Families_v2,321.65,45950,31104,6788,459,54
-2026-W34,Savings_Stat_Video15_Millennials_v2,297.64,36297,22330,10026,472,43
-2026-W35,Savings_Stat_Video15_Millennials_v2,296.35,36140,22655,10144,463,41
-2026-W36,Savings_Stat_Video15_Millennials_v2,306.12,37332,23250,10180,491,45
-2026-W37,Savings_Stat_Video15_Millennials_v2,319.98,39022,23618,10874,505,45
-2026-W38,Savings_Stat_Video15_Millennials_v2,338.65,41299,24695,11748,543,50
-2026-W39,Savings_Stat_Video15_Millennials_v2,337.04,41103,25213,11753,530,48
-2026-W40,Savings_Stat_Video15_Millennials_v2,357.81,43636,25854,12294,576,52
-2026-W41,Savings_Stat_Video15_Millennials_v2,351.2,42830,25446,11874,555,49
-2026-W42,Savings_Stat_Video15_Millennials_v2,369.98,45120,26262,12351,575,52
-2026-W43,Savings_Stat_Video15_Millennials_v2,377.65,46055,27179,12530,595,54
-2026-W44,Savings_Stat_Video15_Millennials_v2,387.05,47201,27418,13120,612,54
-2026-W45,Savings_Stat_Video15_Millennials_v2,385.82,47052,26771,13374,621,56
-2026-W46,Savings_Stat_Video15_Millennials_v2,409.47,49935,28286,14015,633,55
-2026-W34,Savings_Problem_Carousel_GenZ_v1,262.85,29870,21529,6028,362,29
-2026-W35,Savings_Problem_Carousel_GenZ_v1,266.87,30326,20883,5939,357,28
-2026-W36,Savings_Problem_Carousel_GenZ_v1,264.45,30051,20832,6082,362,28
-2026-W37,Savings_Problem_Carousel_GenZ_v1,282.62,32116,22725,6275,388,31
-2026-W38,Savings_Problem_Carousel_GenZ_v1,291.3,33102,22118,6546,388,30
-2026-W39,Savings_Problem_Carousel_GenZ_v1,296.6,33705,22315,6569,402,33
-2026-W40,Savings_Problem_Carousel_GenZ_v1,304.58,34611,23146,7068,405,33
-2026-W41,Savings_Problem_Carousel_GenZ_v1,310.65,35301,24114,6996,436,35
-2026-W42,Savings_Problem_Carousel_GenZ_v1,315.09,35805,23866,7311,430,34
-2026-W43,Savings_Problem_Carousel_GenZ_v1,330.37,37542,25198,7657,463,37
-2026-W44,Savings_Problem_Carousel_GenZ_v1,335.89,38169,24881,7528,464,38
-2026-W45,Savings_Problem_Carousel_GenZ_v1,345.69,39283,25221,7966,471,38
-2026-W46,Savings_Problem_Carousel_GenZ_v1,342.25,38892,24291,7956,476,37
-2026-W34,Retargeting_Test,76.8,11816,5920,1148,107,5
-2026-W35,Retargeting_Test,82.03,12620,6369,1250,112,6
-2026-W36,Retargeting_Test,84.57,13010,6302,1336,116,6
-2026-W37,Retargeting_Test,82.91,12755,6111,1290,115,6
-2026-W38,Retargeting_Test,88.12,13558,6522,1333,124,6
-2026-W39,Retargeting_Test,90.73,13959,6725,1398,126,6
-2026-W40,Retargeting_Test,91.63,14097,6553,1390,126,6
-2026-W41,Retargeting_Test,92.97,14303,6840,1433,126,6
-2026-W42,Retargeting_Test,98.24,15114,7132,1532,134,7
-2026-W43,Retargeting_Test,101.89,15676,7180,1539,139,7
-2026-W44,Retargeting_Test,99.74,15345,7112,1514,134,7
-2026-W45,Retargeting_Test,106.69,16414,7370,1678,149,7
-2026-W46,Retargeting_Test,106.02,16311,7122,1625,147,7
+week,ad_name,platform,campaign,spend,impressions,reach,three_sec_views,clicks,trials,paying_customers
+2026-W34,AISearchVisibility_Keyword_RSA_Marketer_v1,Google,Non-brand search,484.02,40335,31937,0,2387,235,74
+2026-W35,AISearchVisibility_Keyword_RSA_Marketer_v1,Google,Non-brand search,499.64,41637,30982,0,2436,242,66
+2026-W36,AISearchVisibility_Keyword_RSA_Marketer_v1,Google,Non-brand search,500.21,41684,31426,0,2430,239,74
+2026-W37,AISearchVisibility_Keyword_RSA_Marketer_v1,Google,Non-brand search,524.61,43718,33206,0,2637,269,73
+2026-W38,AISearchVisibility_Keyword_RSA_Marketer_v1,Google,Non-brand search,547.46,45622,33348,0,2711,266,87
+2026-W39,AISearchVisibility_Keyword_RSA_Marketer_v1,Google,Non-brand search,546.59,45549,34205,0,2667,272,83
+2026-W40,AISearchVisibility_Keyword_RSA_Marketer_v1,Google,Non-brand search,576.84,48070,34409,0,2890,297,87
+2026-W41,AISearchVisibility_Keyword_RSA_Marketer_v1,Google,Non-brand search,582.61,48551,34227,0,2934,300,91
+2026-W42,AISearchVisibility_Keyword_RSA_Marketer_v1,Google,Non-brand search,602.51,50209,36763,0,2963,293,80
+2026-W43,AISearchVisibility_Keyword_RSA_Marketer_v1,Google,Non-brand search,599.83,49986,36141,0,2959,298,87
+2026-W44,AISearchVisibility_Keyword_RSA_Marketer_v1,Google,Non-brand search,619.14,51595,36720,0,3052,313,97
+2026-W45,AISearchVisibility_Keyword_RSA_Marketer_v1,Google,Non-brand search,642.58,53548,37856,0,3257,319,93
+2026-W46,AISearchVisibility_Keyword_RSA_Marketer_v1,Google,Non-brand search,671.97,55998,38140,0,3371,341,109
+2026-W34,SEOAutomation_Outcome_RSA_Marketer_v1,Google,Non-brand search,402.56,36596,28616,0,1778,158,42
+2026-W35,SEOAutomation_Outcome_RSA_Marketer_v1,Google,Non-brand search,400.81,36437,27033,0,1863,166,48
+2026-W36,SEOAutomation_Outcome_RSA_Marketer_v1,Google,Non-brand search,417.13,37921,27904,0,1891,168,45
+2026-W37,SEOAutomation_Outcome_RSA_Marketer_v1,Google,Non-brand search,433.23,39384,29838,0,1979,182,50
+2026-W38,SEOAutomation_Outcome_RSA_Marketer_v1,Google,Non-brand search,436.05,39641,28470,0,1983,174,44
+2026-W39,SEOAutomation_Outcome_RSA_Marketer_v1,Google,Non-brand search,444.73,40430,29395,0,2057,184,47
+2026-W40,SEOAutomation_Outcome_RSA_Marketer_v1,Google,Non-brand search,463.96,42178,29724,0,2113,196,59
+2026-W41,SEOAutomation_Outcome_RSA_Marketer_v1,Google,Non-brand search,465.12,42283,30000,0,2137,193,51
+2026-W42,SEOAutomation_Outcome_RSA_Marketer_v1,Google,Non-brand search,495.19,45018,32829,0,2242,201,61
+2026-W43,SEOAutomation_Outcome_RSA_Marketer_v1,Google,Non-brand search,514.26,46751,33468,0,2338,206,63
+2026-W44,SEOAutomation_Outcome_RSA_Marketer_v1,Google,Non-brand search,526.24,47840,33864,0,2412,218,57
+2026-W45,SEOAutomation_Outcome_RSA_Marketer_v1,Google,Non-brand search,534.98,48634,33624,0,2472,223,56
+2026-W46,SEOAutomation_Outcome_RSA_Marketer_v1,Google,Non-brand search,532.88,48443,34259,0,2485,229,68
+2026-W34,AgencyUseCase_Proof_RSA_Agency_v1,Google,Non-brand search,282.7,21746,18615,0,1112,137,44
+2026-W35,AgencyUseCase_Proof_RSA_Agency_v1,Google,Non-brand search,294.33,22641,19176,0,1150,140,45
+2026-W36,AgencyUseCase_Proof_RSA_Agency_v1,Google,Non-brand search,302.71,23285,18967,0,1148,141,49
+2026-W37,AgencyUseCase_Proof_RSA_Agency_v1,Google,Non-brand search,306.35,23565,19021,0,1195,141,47
+2026-W38,AgencyUseCase_Proof_RSA_Agency_v1,Google,Non-brand search,329.84,25372,20149,0,1264,152,49
+2026-W39,AgencyUseCase_Proof_RSA_Agency_v1,Google,Non-brand search,323.47,24882,19941,0,1251,148,49
+2026-W40,AgencyUseCase_Proof_RSA_Agency_v1,Google,Non-brand search,328.79,25292,19728,0,1244,153,57
+2026-W41,AgencyUseCase_Proof_RSA_Agency_v1,Google,Non-brand search,337.15,25935,20521,0,1310,154,50
+2026-W42,AgencyUseCase_Proof_RSA_Agency_v1,Google,Non-brand search,363.91,27993,21508,0,1397,171,63
+2026-W43,AgencyUseCase_Proof_RSA_Agency_v1,Google,Non-brand search,356.47,27421,21484,0,1365,163,57
+2026-W44,AgencyUseCase_Proof_RSA_Agency_v1,Google,Non-brand search,376.91,28993,21738,0,1492,175,60
+2026-W45,AgencyUseCase_Proof_RSA_Agency_v1,Google,Non-brand search,376.71,28978,21293,0,1427,168,58
+2026-W46,AgencyUseCase_Proof_RSA_Agency_v1,Google,Non-brand search,387.14,29780,22456,0,1467,180,62
+2026-W34,LocalSMB_Keyword_RSA_SMB_v1,Google,Non-brand search,275.85,30650,25465,0,1193,98,23
+2026-W35,LocalSMB_Keyword_RSA_SMB_v1,Google,Non-brand search,285.93,31770,25559,0,1297,102,22
+2026-W36,LocalSMB_Keyword_RSA_SMB_v1,Google,Non-brand search,281.28,31254,25687,0,1217,97,23
+2026-W37,LocalSMB_Keyword_RSA_SMB_v1,Google,Non-brand search,290.15,32239,25646,0,1286,102,25
+2026-W38,LocalSMB_Keyword_RSA_SMB_v1,Google,Non-brand search,311.39,34599,27631,0,1402,110,23
+2026-W39,LocalSMB_Keyword_RSA_SMB_v1,Google,Non-brand search,319.23,35470,28018,0,1422,115,23
+2026-W40,LocalSMB_Keyword_RSA_SMB_v1,Google,Non-brand search,320.21,35579,27966,0,1453,114,27
+2026-W41,LocalSMB_Keyword_RSA_SMB_v1,Google,Non-brand search,318.47,35385,28088,0,1423,115,24
+2026-W42,LocalSMB_Keyword_RSA_SMB_v1,Google,Non-brand search,327.16,36352,27407,0,1432,115,26
+2026-W43,LocalSMB_Keyword_RSA_SMB_v1,Google,Non-brand search,341.24,37915,28842,0,1519,125,26
+2026-W44,LocalSMB_Keyword_RSA_SMB_v1,Google,Non-brand search,355.55,39506,30405,0,1570,127,27
+2026-W45,LocalSMB_Keyword_RSA_SMB_v1,Google,Non-brand search,355.14,39460,29184,0,1538,123,30
+2026-W46,LocalSMB_Keyword_RSA_SMB_v1,Google,Non-brand search,378.13,42014,32082,0,1652,130,31
+2026-W34,AdsUseCase_Outcome_RSA_Marketer_v1,Google,Non-brand search,319.13,26594,21669,0,1319,129,37
+2026-W35,AdsUseCase_Outcome_RSA_Marketer_v1,Google,Non-brand search,325.28,27107,22217,0,1395,141,34
+2026-W36,AdsUseCase_Outcome_RSA_Marketer_v1,Google,Non-brand search,337.01,28084,23224,0,1418,146,36
+2026-W37,AdsUseCase_Outcome_RSA_Marketer_v1,Google,Non-brand search,332.23,27686,22941,0,1389,137,38
+2026-W38,AdsUseCase_Outcome_RSA_Marketer_v1,Google,Non-brand search,354.0,29500,24066,0,1487,147,39
+2026-W39,AdsUseCase_Outcome_RSA_Marketer_v1,Google,Non-brand search,367.53,30627,23813,0,1494,149,38
+2026-W40,AdsUseCase_Outcome_RSA_Marketer_v1,Google,Non-brand search,357.19,29766,23026,0,1501,148,42
+2026-W41,AdsUseCase_Outcome_RSA_Marketer_v1,Google,Non-brand search,378.69,31558,24685,0,1531,149,43
+2026-W42,AdsUseCase_Outcome_RSA_Marketer_v1,Google,Non-brand search,396.26,33021,25410,0,1684,169,42
+2026-W43,AdsUseCase_Outcome_RSA_Marketer_v1,Google,Non-brand search,387.38,32282,24968,0,1653,168,49
+2026-W44,AdsUseCase_Outcome_RSA_Marketer_v1,Google,Non-brand search,415.31,34609,26683,0,1704,166,47
+2026-W45,AdsUseCase_Outcome_RSA_Marketer_v1,Google,Non-brand search,424.52,35377,26709,0,1782,174,51
+2026-W46,AdsUseCase_Outcome_RSA_Marketer_v1,Google,Non-brand search,433.6,36134,26138,0,1840,188,46
+2026-W34,ComparisonAlt_Compare_RSA_Marketer_v1,Google,Non-brand search,255.58,18255,15368,0,1311,187,66
+2026-W35,ComparisonAlt_Compare_RSA_Marketer_v1,Google,Non-brand search,264.4,18886,15803,0,1345,184,65
+2026-W36,ComparisonAlt_Compare_RSA_Marketer_v1,Google,Non-brand search,272.87,19491,16193,0,1390,194,62
+2026-W37,ComparisonAlt_Compare_RSA_Marketer_v1,Google,Non-brand search,279.55,19968,16424,0,1358,187,59
+2026-W38,ComparisonAlt_Compare_RSA_Marketer_v1,Google,Non-brand search,288.41,20601,16057,0,1423,201,65
+2026-W39,ComparisonAlt_Compare_RSA_Marketer_v1,Google,Non-brand search,298.17,21298,16866,0,1530,209,76
+2026-W40,ComparisonAlt_Compare_RSA_Marketer_v1,Google,Non-brand search,291.63,20830,15934,0,1438,197,64
+2026-W41,ComparisonAlt_Compare_RSA_Marketer_v1,Google,Non-brand search,309.1,22079,17390,0,1555,218,70
+2026-W42,ComparisonAlt_Compare_RSA_Marketer_v1,Google,Non-brand search,313.92,22423,17560,0,1589,216,77
+2026-W43,ComparisonAlt_Compare_RSA_Marketer_v1,Google,Non-brand search,320.78,22913,17290,0,1627,230,74
+2026-W44,ComparisonAlt_Compare_RSA_Marketer_v1,Google,Non-brand search,319.15,22796,17101,0,1579,219,77
+2026-W45,ComparisonAlt_Compare_RSA_Marketer_v1,Google,Non-brand search,339.58,24256,18431,0,1678,234,76
+2026-W46,ComparisonAlt_Compare_RSA_Marketer_v1,Google,Non-brand search,338.52,24180,18402,0,1685,242,83
+2026-W34,Brand_Brand_RSA_Marketer_v1,Google,Brand,122.9,15363,10898,0,759,46,16
+2026-W35,Brand_Brand_RSA_Marketer_v1,Google,Brand,122.02,15252,10832,0,766,46,18
+2026-W36,Brand_Brand_RSA_Marketer_v1,Google,Brand,126.76,15845,11290,0,791,49,21
+2026-W37,Brand_Brand_RSA_Marketer_v1,Google,Brand,128.21,16026,11398,0,802,49,19
+2026-W38,Brand_Brand_RSA_Marketer_v1,Google,Brand,136.97,17121,11584,0,865,51,19
+2026-W39,Brand_Brand_RSA_Marketer_v1,Google,Brand,134.06,16758,11577,0,837,51,19
+2026-W40,Brand_Brand_RSA_Marketer_v1,Google,Brand,140.87,17609,11774,0,864,52,21
+2026-W41,Brand_Brand_RSA_Marketer_v1,Google,Brand,142.97,17871,11819,0,867,53,22
+2026-W42,Brand_Brand_RSA_Marketer_v1,Google,Brand,145.29,18161,12065,0,890,55,22
+2026-W43,Brand_Brand_RSA_Marketer_v1,Google,Brand,148.29,18536,12332,0,946,57,24
+2026-W44,Brand_Brand_RSA_Marketer_v1,Google,Brand,157.57,19696,12426,0,990,61,26
+2026-W45,Brand_Brand_RSA_Marketer_v1,Google,Brand,160.68,20085,12757,0,1005,61,25
+2026-W46,Brand_Brand_RSA_Marketer_v1,Google,Brand,167.09,20886,13128,0,1043,62,23
+2026-W34,UGC_Problem_Video15_GenZ_v1,Meta,Prospecting,574.71,60496,33081,20290,1090,99,23
+2026-W35,UGC_Problem_Video15_GenZ_v1,Meta,Prospecting,579.55,61005,34363,20292,1086,98,23
+2026-W36,UGC_Problem_Video15_GenZ_v1,Meta,Prospecting,611.23,64340,35307,21932,1128,101,25
+2026-W37,UGC_Problem_Video15_GenZ_v1,Meta,Prospecting,610.37,64250,35866,22101,1185,107,29
+2026-W38,UGC_Problem_Video15_GenZ_v1,Meta,Prospecting,648.57,68271,38202,23565,1192,106,28
+2026-W39,UGC_Problem_Video15_GenZ_v1,Meta,Prospecting,673.33,70877,39568,24248,1295,117,28
+2026-W40,UGC_Problem_Video15_GenZ_v1,Meta,Prospecting,661.28,69608,38821,23921,1218,109,27
+2026-W41,UGC_Problem_Video15_GenZ_v1,Meta,Prospecting,675.84,71141,39600,23501,1252,113,28
+2026-W42,UGC_Problem_Video15_GenZ_v1,Meta,Prospecting,709.53,74687,42705,25335,1356,119,27
+2026-W43,UGC_Problem_Video15_GenZ_v1,Meta,Prospecting,718.65,75647,35638,25534,1145,84,22
+2026-W44,UGC_Problem_Video15_GenZ_v1,Meta,Prospecting,755.76,79553,31155,27112,1009,56,16
+2026-W45,UGC_Problem_Video15_GenZ_v1,Meta,Prospecting,751.28,79082,25198,27298,889,41,11
+2026-W46,UGC_Problem_Video15_GenZ_v1,Meta,Prospecting,761.22,80128,22104,27521,737,27,7
+2026-W34,UGC_Question_Video6_GenZ_v2,Meta,Prospecting,460.08,51120,31572,21094,1091,86,23
+2026-W35,UGC_Question_Video6_GenZ_v2,Meta,Prospecting,470.89,52321,31768,20841,1129,88,22
+2026-W36,UGC_Question_Video6_GenZ_v2,Meta,Prospecting,501.36,55707,33221,22259,1163,94,25
+2026-W37,UGC_Question_Video6_GenZ_v2,Meta,Prospecting,514.01,57113,35504,23557,1219,100,24
+2026-W38,UGC_Question_Video6_GenZ_v2,Meta,Prospecting,539.38,59931,35415,24381,1247,99,26
+2026-W39,UGC_Question_Video6_GenZ_v2,Meta,Prospecting,533.07,59230,34532,24956,1268,99,26
+2026-W40,UGC_Question_Video6_GenZ_v2,Meta,Prospecting,563.13,62570,36440,26370,1309,106,26
+2026-W41,UGC_Question_Video6_GenZ_v2,Meta,Prospecting,576.75,64084,37346,26638,1344,107,27
+2026-W42,UGC_Question_Video6_GenZ_v2,Meta,Prospecting,592.57,65841,37361,26580,1348,110,28
+2026-W43,UGC_Question_Video6_GenZ_v2,Meta,Prospecting,598.29,66477,38396,26735,1357,111,27
+2026-W44,UGC_Question_Video6_GenZ_v2,Meta,Prospecting,619.27,68808,39474,27833,1478,120,28
+2026-W45,UGC_Question_Video6_GenZ_v2,Meta,Prospecting,639.17,71019,41008,29569,1511,121,33
+2026-W46,UGC_Question_Video6_GenZ_v2,Meta,Prospecting,642.05,71339,39832,28760,1524,119,32
+2026-W34,FounderStory_Stat_Video15_Millennials_v1,Meta,Prospecting,355.81,44477,29507,9741,533,37,12
+2026-W35,FounderStory_Stat_Video15_Millennials_v1,Meta,Prospecting,367.04,45879,29919,9864,543,37,11
+2026-W36,FounderStory_Stat_Video15_Millennials_v1,Meta,Prospecting,372.89,46611,30399,10080,568,39,12
+2026-W37,FounderStory_Stat_Video15_Millennials_v1,Meta,Prospecting,397.69,49711,31281,10674,597,41,12
+2026-W38,FounderStory_Stat_Video15_Millennials_v1,Meta,Prospecting,396.61,49576,32403,10759,578,41,13
+2026-W39,FounderStory_Stat_Video15_Millennials_v1,Meta,Prospecting,415.33,51916,32576,11415,609,44,14
+2026-W40,FounderStory_Stat_Video15_Millennials_v1,Meta,Prospecting,426.69,53336,33606,11418,638,44,14
+2026-W41,FounderStory_Stat_Video15_Millennials_v1,Meta,Prospecting,435.02,54377,33238,12056,649,44,12
+2026-W42,FounderStory_Stat_Video15_Millennials_v1,Meta,Prospecting,437.0,54626,33593,11742,648,47,15
+2026-W43,FounderStory_Stat_Video15_Millennials_v1,Meta,Prospecting,460.12,57515,34574,12616,679,48,14
+2026-W44,FounderStory_Stat_Video15_Millennials_v1,Meta,Prospecting,478.11,59764,35186,13235,709,50,16
+2026-W45,FounderStory_Stat_Video15_Millennials_v1,Meta,Prospecting,491.66,61457,37570,13242,725,51,14
+2026-W46,FounderStory_Stat_Video15_Millennials_v1,Meta,Prospecting,477.12,59640,36592,12956,714,50,14
+2026-W34,FounderStory_Problem_Video15_SMB_v1,Meta,Prospecting,315.47,38472,27149,9863,499,55,20
+2026-W35,FounderStory_Problem_Video15_SMB_v1,Meta,Prospecting,323.36,39434,27621,9885,526,58,20
+2026-W36,FounderStory_Problem_Video15_SMB_v1,Meta,Prospecting,338.39,41267,28343,10198,523,56,20
+2026-W37,FounderStory_Problem_Video15_SMB_v1,Meta,Prospecting,341.05,41592,29214,10523,529,59,22
+2026-W38,FounderStory_Problem_Video15_SMB_v1,Meta,Prospecting,349.0,42561,29242,10597,539,58,19
+2026-W39,FounderStory_Problem_Video15_SMB_v1,Meta,Prospecting,352.97,43045,30019,10810,575,65,24
+2026-W40,FounderStory_Problem_Video15_SMB_v1,Meta,Prospecting,378.71,46184,30803,11724,592,63,21
+2026-W41,FounderStory_Problem_Video15_SMB_v1,Meta,Prospecting,380.46,46398,30219,11693,592,65,22
+2026-W42,FounderStory_Problem_Video15_SMB_v1,Meta,Prospecting,376.91,45964,30680,11738,592,66,22
+2026-W43,FounderStory_Problem_Video15_SMB_v1,Meta,Prospecting,400.33,48821,32404,12242,652,73,25
+2026-W44,FounderStory_Problem_Video15_SMB_v1,Meta,Prospecting,400.57,48850,32061,12223,653,71,27
+2026-W45,FounderStory_Problem_Video15_SMB_v1,Meta,Prospecting,418.35,51018,32746,12649,660,71,25
+2026-W46,FounderStory_Problem_Video15_SMB_v1,Meta,Prospecting,426.96,52069,32697,13351,665,73,25
+2026-W34,Screenshots_Stat_Static_Millennials_v1,Meta,Prospecting,311.16,41488,24972,6126,469,28,5
+2026-W35,Screenshots_Stat_Static_Millennials_v1,Meta,Prospecting,317.69,42359,24593,6511,455,28,6
+2026-W36,Screenshots_Stat_Static_Millennials_v1,Meta,Prospecting,318.47,42463,24010,6373,467,28,5
+2026-W37,Screenshots_Stat_Static_Millennials_v1,Meta,Prospecting,341.91,45588,25306,6790,494,30,6
+2026-W38,Screenshots_Stat_Static_Millennials_v1,Meta,Prospecting,344.57,45943,25407,7011,516,31,6
+2026-W39,Screenshots_Stat_Static_Millennials_v1,Meta,Prospecting,362.84,48378,27090,7169,542,32,7
+2026-W40,Screenshots_Stat_Static_Millennials_v1,Meta,Prospecting,373.71,49828,27669,7405,537,32,7
+2026-W41,Screenshots_Stat_Static_Millennials_v1,Meta,Prospecting,373.04,49739,27418,7549,541,32,6
+2026-W42,Screenshots_Stat_Static_Millennials_v1,Meta,Prospecting,375.2,50027,26805,7596,535,33,7
+2026-W43,Screenshots_Stat_Static_Millennials_v1,Meta,Prospecting,387.86,51714,27637,7755,580,36,6
+2026-W44,Screenshots_Stat_Static_Millennials_v1,Meta,Prospecting,399.8,53307,28353,7967,599,37,7
+2026-W45,Screenshots_Stat_Static_Millennials_v1,Meta,Prospecting,407.92,54389,28443,7989,595,36,7
+2026-W46,Screenshots_Stat_Static_Millennials_v1,Meta,Prospecting,429.97,57330,30405,8781,638,39,8
+2026-W34,Screenshots_Demo_Carousel_SMB_v1,Meta,Prospecting,235.98,33711,24254,6163,333,34,11
+2026-W35,Screenshots_Demo_Carousel_SMB_v1,Meta,Prospecting,231.3,33044,23990,6125,333,34,11
+2026-W36,Screenshots_Demo_Carousel_SMB_v1,Meta,Prospecting,243.89,34841,25001,6250,351,36,12
+2026-W37,Screenshots_Demo_Carousel_SMB_v1,Meta,Prospecting,257.88,36841,26264,6582,375,37,11
+2026-W38,Screenshots_Demo_Carousel_SMB_v1,Meta,Prospecting,259.2,37029,25332,6497,377,37,12
+2026-W39,Screenshots_Demo_Carousel_SMB_v1,Meta,Prospecting,267.56,38223,26412,6864,392,38,11
+2026-W40,Screenshots_Demo_Carousel_SMB_v1,Meta,Prospecting,268.58,38368,26639,6980,391,40,12
+2026-W41,Screenshots_Demo_Carousel_SMB_v1,Meta,Prospecting,278.53,39790,26811,7130,400,40,12
+2026-W42,Screenshots_Demo_Carousel_SMB_v1,Meta,Prospecting,292.37,41768,28132,7400,415,41,13
+2026-W43,Screenshots_Demo_Carousel_SMB_v1,Meta,Prospecting,294.69,42098,26795,7650,416,43,13
+2026-W44,Screenshots_Demo_Carousel_SMB_v1,Meta,Prospecting,301.49,43070,27659,7802,437,43,13
+2026-W45,Screenshots_Demo_Carousel_SMB_v1,Meta,Prospecting,314.68,44954,29304,8020,458,46,15
+2026-W46,Screenshots_Demo_Carousel_SMB_v1,Meta,Prospecting,316.44,45206,28526,8302,458,46,15
+2026-W34,Retargeting_Test,Meta,Retargeting,79.89,12290,6092,1235,109,5,1
+2026-W35,Retargeting_Test,Meta,Retargeting,78.36,12056,6043,1179,110,5,1
+2026-W36,Retargeting_Test,Meta,Retargeting,85.02,13080,6400,1289,121,6,1
+2026-W37,Retargeting_Test,Meta,Retargeting,84.93,13066,6228,1276,119,6,1
+2026-W38,Retargeting_Test,Meta,Retargeting,85.48,13150,6150,1353,121,6,1
+2026-W39,Retargeting_Test,Meta,Retargeting,91.34,14052,6746,1408,129,6,1
+2026-W40,Retargeting_Test,Meta,Retargeting,92.99,14307,6679,1468,129,7,1
+2026-W41,Retargeting_Test,Meta,Retargeting,92.87,14288,6873,1464,132,7,1
+2026-W42,Retargeting_Test,Meta,Retargeting,94.19,14490,6580,1441,134,7,1
+2026-W43,Retargeting_Test,Meta,Retargeting,101.71,15648,7263,1601,141,7,1
+2026-W44,Retargeting_Test,Meta,Retargeting,101.12,15557,7000,1548,142,7,2
+2026-W45,Retargeting_Test,Meta,Retargeting,101.59,15629,7076,1554,137,7,1
+2026-W46,Retargeting_Test,Meta,Retargeting,103.11,15862,7137,1620,142,7,1
