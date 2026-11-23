@@ -27,7 +27,7 @@ C2T_DROP_THRESHOLD = 0.15   # click-to-trial down 15%+ week over week
 
 ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_INPUT = ROOT / "data" / "mock_ads.csv"
-DEFAULT_OUTPUT = ROOT / "docs" / "report-data.js"
+DEFAULT_OUTPUT = ROOT / "docs" / "report-90d.js"
 
 
 def parse_ad_name(name: str) -> dict:
@@ -268,6 +268,125 @@ def enrich(report: dict, rows: list) -> dict:
     return report
 
 
+def _sum(rows_subset):
+    t = defaultdict(float)
+    for r in rows_subset:
+        for f in SUM_FIELDS:
+            t[f] += r[f]
+    return t
+
+
+def window_view(report: dict, rows: list) -> dict:
+    """90-day view: benchmark, creative scorecard against it, tag and combo performance, next-brief recommendations.
+
+    The window is every week in the input (13 weeks = 90 days in the mock data).
+    """
+    weeks = report["weeks"]
+    bench = kpis(_sum(rows))
+    early, late = set(weeks[:3]), set(weeks[-3:])
+    alerted = {a["value"] for a in report["alerts"] if a["dimension"] == "ad_name"}
+
+    scorecard = []
+    for ad in report["ads"]:
+        name = ad["value"]
+        ad_rows = [r for r in rows if r["ad_name"] == name]
+        t = _sum(ad_rows)
+        k = kpis(t)
+        cpa_early = kpis(_sum([r for r in ad_rows if r["week"] in early]))["trial_cpa"]
+        cpa_late = kpis(_sum([r for r in ad_rows if r["week"] in late]))["trial_cpa"]
+        trend = pct_change(cpa_late, cpa_early)
+        idx = round(k["trial_cpa"] / bench["trial_cpa"], 2) if k["trial_cpa"] and bench["trial_cpa"] else None
+        freq = ad["latest"]["frequency"]
+
+        if t["trials"] < 30:
+            verdict, reason = "Too little data", f"Only {round(t['trials'])} trials in 90 days."
+        elif idx is not None and idx > 1.5 and trend is not None and trend > 0.10:
+            verdict, reason = "Pause", f"Trial CPA is {idx:.2f}x the benchmark and rose {trend * 100:.0f}% over the last 3 weeks."
+        elif name in alerted:
+            verdict, reason = "Refresh", "Fatigue flag this week: frequency up and click-to-trial down."
+        elif idx is not None and idx > 1.2:
+            verdict, reason = "Refresh", f"Trial CPA is {idx:.2f}x the benchmark."
+        elif idx is not None and idx < 0.85 and freq is not None and freq < 3:
+            verdict, reason = "Scale", f"Trial CPA is {idx:.2f}x the benchmark at frequency {freq:.2f}."
+        else:
+            verdict, reason = "Keep", "Within range of the benchmark."
+
+        scorecard.append({
+            "value": name,
+            "tags": ad["tags"],
+            "spend": round(t["spend"], 2),
+            "trials": round(t["trials"]),
+            "trial_cpa": k["trial_cpa"],
+            "index": idx,
+            "hook_rate": k["hook_rate"],
+            "click_to_trial": k["click_to_trial"],
+            "frequency": freq,
+            "cpa_trend_3w": trend,
+            "verdict": verdict,
+            "reason": reason,
+        })
+    order = {"Pause": 0, "Refresh": 1, "Scale": 2, "Keep": 3, "Too little data": 4}
+    scorecard.sort(key=lambda s: (order[s["verdict"]], -s["spend"]))
+
+    def tag_window(dim):
+        agg = defaultdict(lambda: defaultdict(float))
+        for r in rows:
+            for f in SUM_FIELDS:
+                agg[r[dim]][f] += r[f]
+        out = []
+        for v in agg:
+            k = kpis(agg[v])
+            out.append({"value": v, "spend": k["spend"], "trials": round(agg[v]["trials"]), "trial_cpa": k["trial_cpa"],
+                        "index": round(k["trial_cpa"] / bench["trial_cpa"], 2) if k["trial_cpa"] else None})
+        return sorted(out, key=lambda e: e["trial_cpa"] if e["trial_cpa"] is not None else 1e9)
+
+    combo = defaultdict(lambda: defaultdict(float))
+    for r in rows:
+        key = (r["hook"], r["format"], r["audience"])
+        for f in SUM_FIELDS:
+            combo[key][f] += r[f]
+    combos = []
+    for key, t in combo.items():
+        k = kpis(t)
+        if t["trials"] < 40 or k["trial_cpa"] is None:
+            continue
+        combos.append({
+            "label": " · ".join(key), "hook": key[0], "format": key[1], "audience": key[2],
+            "trials": round(t["trials"]), "spend": k["spend"], "trial_cpa": k["trial_cpa"],
+            "index": round(k["trial_cpa"] / bench["trial_cpa"], 2),
+        })
+    combos.sort(key=lambda c: c["trial_cpa"])
+
+    recs = list(report["recommendations"])
+    for s in scorecard:
+        if s["verdict"] == "Pause":
+            recs.append({"priority": "high", "title": f"Pause {s['value']}",
+                         "action": "Stop new spend on this creative. Move its budget to the top combinations below.",
+                         "why": s["reason"]})
+        if s["verdict"] == "Scale":
+            recs.append({"priority": "low", "title": f"Scale {s['value']} by 10 to 15%",
+                         "action": "Raise budget in small steps and watch frequency each week.",
+                         "why": s["reason"]})
+    for c in combos[:3]:
+        recs.append({"priority": "medium", "title": f"Brief next: {c['label']}",
+                     "action": "Build the next creative on this hook, format and audience combination.",
+                     "why": f"90-day trial CPA ${c['trial_cpa']:.2f}, {c['index']:.2f}x benchmark, from {c['trials']} trials."})
+    for c in [c for c in combos if c["index"] > 1.3][-2:]:
+        recs.append({"priority": "medium", "title": f"Retire {c['label']} from new briefs",
+                     "action": "Do not brief this combination again until a new hook changes the result.",
+                     "why": f"90-day trial CPA ${c['trial_cpa']:.2f}, {c['index']:.2f}x benchmark."})
+    order_p = {"high": 0, "medium": 1, "low": 2}
+    report["recommendations"] = sorted(recs, key=lambda r: order_p[r["priority"]])
+
+    report["insights"].append({"title": "90-day benchmark",
+                               "text": f"Over {len(weeks)} weeks, blended trial CPA was ${bench['trial_cpa']:.2f} on ${bench['spend']:,.0f} spend."})
+    report["window"] = {"from": weeks[0], "to": weeks[-1], "weeks": len(weeks), "benchmark": bench}
+    report["scorecard"] = scorecard
+    report["tags_90d"] = {d: tag_window(d) for d in ("hook", "format", "audience")}
+    report["combos"] = combos
+    return report
+
+
 def write_js(report: dict, path: Path):
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text("window.REPORT_DATA = " + json.dumps(report, indent=2) + ";\n")
@@ -280,7 +399,7 @@ def main():
     args = ap.parse_args()
 
     rows, errors = load_rows(args.input)
-    report = enrich(build_report(rows, errors), rows)
+    report = window_view(enrich(build_report(rows, errors), rows), rows)
     write_js(report, args.output)
     print(f"Weeks {report['weeks'][0]}..{report['latest_week']} | ads {report['ad_count']} | "
           f"alerts {len(report['alerts'])} | parse errors {len(errors)}")

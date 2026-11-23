@@ -10,7 +10,7 @@ import csv
 import random
 from pathlib import Path
 
-WEEKS = ["2026-W41", "2026-W42", "2026-W43", "2026-W44", "2026-W45", "2026-W46"]
+WEEKS = [f"2026-W{n}" for n in range(34, 47)]  # 13 weeks = the last 90 days
 
 # name, base_impressions_per_week, base_frequency, base_ctr, base_click_to_trial, hook_rate, cpm, fatigued
 ADS = [
@@ -38,12 +38,12 @@ def simulate(rng: random.Random):
         for w, week in enumerate(WEEKS):
             noise = lambda: rng.uniform(0.97, 1.03)
             imp = base_imp * (1 + 0.03 * w) * noise()
+            fatigue_weeks = max(0, w - 8)  # fatigue starts in the last five weeks of the window
             if fatigued:
-                freq = base_freq * (1.2 ** w) * noise()  # frequency compounds week over week
+                freq = base_freq * (1.2 ** fatigue_weeks) * noise()  # frequency compounds week over week
             else:
                 freq = base_freq * (1 + 0.01 * w) * noise()
             reach = imp / freq
-            fatigue_weeks = max(0, w - 2)  # fatigue bites from week 4 onward
             if fatigued:
                 ctr = base_ctr * (0.85 ** fatigue_weeks) * noise()
                 c2t = base_c2t * (0.8 ** fatigue_weeks) * noise()

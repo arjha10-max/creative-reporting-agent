@@ -3,47 +3,65 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Creative Reporting Agent (demo)</title>
-  <link rel="stylesheet" href="style.css?v=3">
+  <title>Creative Reporting: 90-day one-pager (demo)</title>
+  <link rel="stylesheet" href="dashboard-90d.css?v=4">
 </head>
 <body>
   <header>
     <div>
-      <h1>Creative reporting agent</h1>
-      <p class="sub">Demo on mock data · weekly rollup by creative tag · fatigue alerts</p>
+      <h1>Creative reporting: 90-day one-pager</h1>
+      <p class="sub" id="window"></p>
     </div>
     <span class="badge">MOCK DATA</span>
   </header>
 
   <main>
-    <section class="cards" id="summary"></section>
+    <section class="kpis" id="kpis"></section>
 
     <section>
-      <h2>Fatigue alerts</h2>
-      <p class="hint">Flag rule: frequency up 15%+ week over week while click-to-trial falls 15%+. A human decides what to do.</p>
+      <h2>Creative scorecard</h2>
+      <p class="hint">Each creative against the 90-day benchmark. Index = its trial CPA ÷ benchmark trial CPA (below 1 is cheaper).</p>
+      <div class="table-wrap"><table id="scorecard"></table></div>
+    </section>
+
+    <section>
+      <h2>Trend, last 90 days</h2>
+      <div class="chart-grid" id="trend"></div>
+    </section>
+
+    <section>
+      <h2>Where the money works, last 90 days</h2>
+      <p class="hint">Trial CPA by tag family. Green is the cheapest in each chart.</p>
+      <div class="chart-grid three" id="tags"></div>
+    </section>
+
+    <section>
+      <h2>Recommendations for future creative</h2>
+      <div class="two-col">
+        <div>
+          <h3>Brief next</h3>
+          <div id="briefs"></div>
+        </div>
+        <div>
+          <h3>All actions</h3>
+          <div id="recs"></div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Fatigue alerts this week</h2>
+      <p class="hint">Rule: frequency up 15% or more week over week while click-to-trial falls 15% or more.</p>
       <div id="alerts"></div>
     </section>
 
-    <section>
-      <h2>Explore the data</h2>
-      <p class="hint">Tag rollups, creatives, insights, charts, recommendations, and the raw weekly rows.</p>
-      <div class="tabs" id="tabs" role="tablist"></div>
-      <div id="panel"></div>
-    </section>
-
-    <section>
-      <h2>Naming-convention guardrail</h2>
-      <p class="hint">Names must follow CONCEPT_HOOK_FORMAT_AUDIENCE_VARIANT. Anything that breaks it is listed here, not dropped.</p>
-      <div id="errors"></div>
-    </section>
-
     <section class="scope">
-      <h2>What this build is</h2>
-      <p id="scope"></p>
+      <h2>Data and limits</h2>
+      <div id="notes"></div>
     </section>
   </main>
 
-  <script src="report-data.js?v=3"></script>
-  <script src="app.js?v=3"></script>
+  <script src="report-90d.js?v=4"></script>
+  <script src="dashboard-90d.js?v=4"></script>
 </body>
 </html>

@@ -6,7 +6,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "agent"))
 
-from creative_report import build_report, enrich, load_rows  # noqa: E402
+from creative_report import build_report, enrich, load_rows, window_view  # noqa: E402
 
 DATA = ROOT / "data" / "mock_ads.csv"
 
@@ -15,11 +15,21 @@ class Enrich(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         rows, errors = load_rows(DATA)
-        cls.report = enrich(build_report(rows, errors), rows)
+        cls.report = window_view(enrich(build_report(rows, errors), rows), rows)
 
     def test_trend_has_one_point_per_week(self):
-        self.assertEqual(len(self.report["trend"]), 6)
+        self.assertEqual(len(self.report["trend"]), 13)
         self.assertEqual(self.report["trend"][-1]["week"], "2026-W46")
+
+    def test_scorecard_covers_every_creative_with_a_verdict(self):
+        verdicts = {s["value"]: s["verdict"] for s in self.report["scorecard"]}
+        self.assertEqual(len(verdicts), 9)
+        self.assertEqual(verdicts["Cashback_Creator_Video15_GenZ_v1"], "Refresh")
+        self.assertEqual(verdicts["Cashback_Question_Video6_GenZ_v2"], "Scale")
+
+    def test_combos_are_ranked_by_trial_cpa(self):
+        cpas = [c["trial_cpa"] for c in self.report["combos"]]
+        self.assertEqual(cpas, sorted(cpas))
 
     def test_insights_cover_spend_and_creatives(self):
         titles = [i["title"] for i in self.report["insights"]]
