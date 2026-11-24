@@ -222,6 +222,7 @@ def build(data: dict, mapping: dict) -> dict:
             "audience": AUDIENCE.get(rs[-1]["Campaign"], rs[-1]["Campaign"]),
             "launched": as_date(rs[-1]["Ad launched"]).isoformat(), "weeks": len(rs),
             "spend": c["spend"], "clicks": c["clicks"], "trials": c["trials"],
+            "impressions": round(impr), "ctr": ratio(clicks, impr),
             "cost_per_trial": c["cost_per_trial"], "click_to_trial": c["click_to_trial"],
             "index": idx, "frequency": freq, "cpt_trend": cpt_trend,
             "verdict": verdict, "reason": reason, "weekly": weekly,
@@ -261,10 +262,12 @@ def build(data: dict, mapping: dict) -> dict:
         w = week_start(r["Date"])
         wk[w]["meta_spend"] += r["Spend ($)"]
         wk[w]["meta_clicks"] += r["Clicks"]
+        wk[w]["meta_impr"] += r["Impressions"]
     for r in gd:
         w = week_start(r["Date"])
         wk[w]["google_spend"] += r["Spend ($)"]
         wk[w]["google_clicks"] += r["Clicks"]
+        wk[w]["google_impr"] += r["Impressions"]
     for r in ph:
         w = week_start(r["Date"])
         if r["Source (utm_source)"] == "facebook":
@@ -282,6 +285,10 @@ def build(data: dict, mapping: dict) -> dict:
             "cost_per_trial": ratio(spend, trials, 2), "click_to_trial": ratio(trials, clicks),
             "meta_cost_per_trial": ratio(t["meta_spend"], t["meta_trials"], 2),
             "google_cost_per_trial": ratio(t["google_spend"], t["google_trials"], 2),
+            "meta_click_to_trial": ratio(t["meta_trials"], t["meta_clicks"]),
+            "google_click_to_trial": ratio(t["google_trials"], t["google_clicks"]),
+            "meta_ctr": ratio(t["meta_clicks"], t["meta_impr"]),
+            "google_ctr": ratio(t["google_clicks"], t["google_impr"]),
         })
 
     # ---- Change log: paid cost per trial before and after each change (not a controlled test) ----
@@ -403,6 +410,12 @@ def build(data: dict, mapping: dict) -> dict:
         "window": {"from": start.isoformat(), "to": end.isoformat(), "days": days, "weeks": len(weeks),
                    "benchmark": {**paid, "unattributed_trials": round(unattributed), "total_signups": round(total_signups)}},
         "latest_week": weeks[-1],
+        "benchmarks": {
+            "meta": {"cost_per_trial": meta_bench_cpt,
+                     "basis": "Meta-reported trials and spend from the weekly ad sheet, all Meta ads combined"},
+            "google": {"cost_per_trial": ratio(goo_spend, goo_rep, 2),
+                       "basis": "Google spend divided by Google-reported conversions, all Google campaigns combined"},
+        },
         "formulas": FORMULAS,
         "platforms": platforms,
         "campaigns": campaigns,

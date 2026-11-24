@@ -137,3 +137,7 @@ main > section { min-width: 0; }
 .chart-card svg { max-width: 100%; }
 #concept-chart .chart-card svg, #concept-chart svg { max-width: 640px; }
 #tags { grid-template-columns: 1fr; }
+
+.callout { background: #f4f7fc; border: 1px solid var(--line); border-left: 4px solid #2f6fed; border-radius: 8px; padding: 10px 14px; margin: 0 0 12px; font-size: 13px; }
+.callout p { margin: 4px 0; }
+.callout ul { margin: 4px 0 0; padding-left: 18px; color: var(--muted); }
