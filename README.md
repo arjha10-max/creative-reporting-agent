@@ -5,6 +5,8 @@ It runs on mock data. It is a demo of the logic and the dashboard, not a live in
 
 **Front end (public, mock data):** https://arjha10-max.github.io/creative-reporting-agent/
 
+**Paying-customer figures are fake.** The public dashboard shows cost per paying customer, but those numbers come from `agent/make_mock_data.py`, which generates them at random (trials × a random paid rate × a 0.9–1.1 multiplier). They are not measured. The real workbook has no paying-customer data, so the real-data dashboard does not show them.
+
 ## What it does
 
 1. **Naming convention.** Every ad name must follow `CONCEPT_HOOK_FORMAT_AUDIENCE_VARIANT`.
