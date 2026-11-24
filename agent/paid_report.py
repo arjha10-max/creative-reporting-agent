@@ -293,6 +293,43 @@ def build(data: dict, mapping: dict) -> dict:
             "google_ctr": ratio(t["google_clicks"], t["google_impr"]),
         })
 
+    # ---- One-line insight and action for each trend chart, computed from the weekly values ----
+    def chart_note(key_m, key_g, name, bad_if_up):
+        def avg(vals):
+            vals = [v for v in vals if v is not None]
+            return sum(vals) / len(vals) if vals else None
+        def fmtv(v):
+            if v is None:
+                return "n/a"
+            return f"${v:.2f}" if name.startswith("cost") else f"{v * 100:.2f}%"
+        m = [t[key_m] for t in trend]
+        g = [t[key_g] for t in trend]
+        out = {}
+        for plat, series in (("Meta", m), ("Google", g)):
+            last = series[-1]
+            base = avg(series[-5:-1])
+            out[plat] = {"latest": last, "base": base, "chg": pct_change(last, base) if last and base else None}
+        mc, gc = out["Meta"]["chg"], out["Google"]["chg"]
+        def word(c):
+            if c is None:
+                return "no comparison"
+            return f"{'up' if c >= 0 else 'down'} {abs(c) * 100:.0f}%"
+        insight = (f"Meta {fmtv(out['Meta']['latest'])} latest week, {word(mc)} vs its prior 4-week average; "
+                   f"Google {fmtv(out['Google']['latest'])}, {word(gc)}.")
+        worse = [c for c in (mc, gc) if c is not None and ((c > 0.10) if bad_if_up else (c < -0.10))]
+        if worse:
+            reco = (f"Review the creatives flagged in the scorecard before adding budget; "
+                    f"{name} moved more than 10% the wrong way.")
+        else:
+            reco = "No change. Both platforms are within 10% of their recent average."
+        return {"insight": insight, "reco": reco}
+
+    chart_notes = {
+        "cost_per_trial": chart_note("meta_cost_per_trial", "google_cost_per_trial", "cost per trial", True),
+        "click_to_trial": chart_note("meta_click_to_trial", "google_click_to_trial", "click-to-trial", False),
+        "ctr": chart_note("meta_ctr", "google_ctr", "CTR", False),
+    }
+
     # ---- Change log: paid cost per trial before and after each change (not a controlled test) ----
     daily = defaultdict(lambda: defaultdict(float))
     for r in md:
@@ -424,6 +461,7 @@ def build(data: dict, mapping: dict) -> dict:
         "concepts": concepts,
         "scorecard": scorecard,
         "trend": trend,
+        "chart_notes": chart_notes,
         "tags": tags,
         "changes": changes,
         "alerts": alerts,

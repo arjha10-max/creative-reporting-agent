@@ -144,3 +144,7 @@ main > section { min-width: 0; }
 
 details.calc summary { cursor: pointer; font-weight: 600; font-size: 14px; padding: 4px 0; }
 details.calc[open] summary { margin-bottom: 8px; }
+
+.chart-wrap { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.chart-insight { margin: 0; font-size: 13px; color: var(--ink); }
+.chart-reco { margin: 0; font-size: 13px; color: var(--muted); }

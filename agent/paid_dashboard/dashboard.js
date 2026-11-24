@@ -200,19 +200,23 @@
 
   function renderCharts() {
     const tr = R.trend;
+    const note = (key, card) => h("div", { class: "chart-wrap" },
+      card,
+      h("p", { class: "chart-insight", text: "Insight: " + R.chart_notes[key].insight }),
+      h("p", { class: "chart-reco", text: "Action: " + R.chart_notes[key].reco }));
     document.getElementById("trend").replaceChildren(
-      lineChart("Cost per trial by week: Meta vs Google", [
+      note("cost_per_trial", lineChart("Cost per trial by week: Meta vs Google", [
         { cls: "meta", points: tr.map(t => ({ x: t.week, y: t.meta_cost_per_trial })) },
         { cls: "google", points: tr.map(t => ({ x: t.week, y: t.google_cost_per_trial })) },
-      ], v => "$" + v.toFixed(0), ["Meta", "Google"]),
-      lineChart("Click-to-trial rate by week: Meta vs Google", [
+      ], v => "$" + v.toFixed(0), ["Meta", "Google"])),
+      note("click_to_trial", lineChart("Click-to-trial rate by week: Meta vs Google", [
         { cls: "meta", points: tr.map(t => ({ x: t.week, y: t.meta_click_to_trial })) },
         { cls: "google", points: tr.map(t => ({ x: t.week, y: t.google_click_to_trial })) },
-      ], v => (v * 100).toFixed(2) + "%", ["Meta", "Google"]),
-      lineChart("CTR by week: Meta vs Google", [
+      ], v => (v * 100).toFixed(2) + "%", ["Meta", "Google"])),
+      note("ctr", lineChart("CTR by week: Meta vs Google", [
         { cls: "meta", points: tr.map(t => ({ x: t.week, y: t.meta_ctr })) },
         { cls: "google", points: tr.map(t => ({ x: t.week, y: t.google_ctr })) },
-      ], v => (v * 100).toFixed(2) + "%", ["Meta", "Google"]),
+      ], v => (v * 100).toFixed(2) + "%", ["Meta", "Google"])),
     );
 
     const pick = dim => (R.tags[dim] || []).filter(e => e.cost_per_trial != null).map(e => ({ label: e.value, value: e.cost_per_trial }));
