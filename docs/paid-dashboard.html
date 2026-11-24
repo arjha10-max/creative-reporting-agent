@@ -1,0 +1,1785 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Paid performance: creative reporting one-pager</title>
+  <style>
+:root {
+  --bg: #f6f7f9;
+  --panel: #ffffff;
+  --ink: #1d232b;
+  --muted: #6b7480;
+  --line: #e3e7ec;
+  --accent: #2f6fed;
+  --bad: #c0392b;
+  --good: #1e8449;
+  --warn: #b35c00;
+  --warn-bg: #fdf1e7;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font: 14px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  color: var(--ink);
+  background: var(--bg);
+}
+
+header {
+  display: flex; justify-content: space-between; align-items: center; gap: 16px;
+  padding: 20px 28px; background: var(--panel); border-bottom: 1px solid var(--line);
+}
+h1 { margin: 0; font-size: 20px; }
+h2 { margin: 0 0 6px; font-size: 16px; }
+h3 { margin: 0 0 8px; font-size: 14px; }
+.sub, .hint { color: var(--muted); margin: 4px 0 0; font-size: 13px; }
+.hint { margin-bottom: 10px; }
+
+.badge {
+  font-size: 11px; font-weight: 600; letter-spacing: 0.06em;
+  padding: 4px 10px; border-radius: 999px; background: var(--warn-bg); color: var(--warn);
+}
+
+main {
+  max-width: 1180px; margin: 20px auto; padding: 0 20px;
+  display: grid; gap: 16px;
+}
+
+section {
+  background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 16px 18px;
+}
+
+.kpis {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px;
+  background: none; border: none; padding: 0;
+}
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; }
+.card-label { color: var(--muted); font-size: 12px; }
+.card-value { font-size: 20px; font-weight: 600; margin-top: 2px; }
+
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+th, td { text-align: right; padding: 7px 8px; border-bottom: 1px solid var(--line); white-space: nowrap; vertical-align: top; }
+th { color: var(--muted); font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: 0.03em; }
+td.tag, th:first-child { text-align: left; }
+td.tags { text-align: left; color: var(--muted); white-space: normal; min-width: 200px; }
+td.why { text-align: left; white-space: normal; min-width: 240px; color: var(--muted); }
+td.bad { color: var(--bad); font-weight: 600; }
+td.good { color: var(--good); font-weight: 600; }
+
+.pill {
+  display: inline-block; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 999px;
+  background: var(--line); color: var(--ink);
+}
+.pill-pause { background: #fbe3e0; color: var(--bad); }
+.pill-refresh { background: var(--warn-bg); color: var(--warn); }
+.pill-scale { background: #e2f3e8; color: var(--good); }
+.pill-keep { background: #e8eefc; color: var(--accent); }
+.pill-too-little-data { background: var(--line); color: var(--muted); }
+
+.chart-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.chart-grid.three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+@media (max-width: 860px) { .chart-grid, .chart-grid.three { grid-template-columns: 1fr; } }
+.chart-card { border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; }
+.chart-card svg { width: 100%; height: auto; display: block; }
+.chart-card .axis { stroke: var(--line); }
+.chart-card .tick { fill: var(--muted); font-size: 10.5px; }
+.chart-card .lbl { fill: var(--ink); font-size: 11.5px; }
+.chart-card .val { fill: var(--muted); font-size: 11px; }
+.chart-card .line { fill: none; stroke: var(--accent); stroke-width: 2; }
+.chart-card .dot { fill: var(--accent); }
+.chart-card .bar { fill: var(--accent); fill-opacity: 0.7; }
+.chart-card .bar-best { fill: var(--good); fill-opacity: 0.85; }
+.chart-card .bar-worst { fill: var(--bad); fill-opacity: 0.85; }
+
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media (max-width: 860px) { .two-col { grid-template-columns: 1fr; } }
+
+.brief { border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; margin-bottom: 8px; }
+.brief-rank { font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); font-weight: 600; }
+.brief-title { font-weight: 600; margin: 2px 0; }
+.brief-line { margin: 2px 0; }
+
+.rec { border-left: 4px solid var(--accent); padding: 9px 12px; border-radius: 6px; background: var(--bg); margin-bottom: 8px; }
+.rec-high { border-left-color: var(--bad); }
+.rec-medium { border-left-color: var(--warn); }
+.rec-low { border-left-color: var(--good); }
+.rec-prio { font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600; color: var(--muted); }
+.rec-title { font-weight: 600; margin: 2px 0; }
+.rec-action { margin: 0 0 3px; }
+.rec-why { margin: 0; color: var(--muted); font-size: 12.5px; }
+
+.alert { border-left: 4px solid var(--bad); background: #fbeeed; padding: 10px 12px; border-radius: 6px; margin-bottom: 8px; }
+.alert-dim { font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--bad); font-weight: 600; }
+.ok { color: var(--good); margin: 0; }
+
+.scope .notes { margin: 0; padding-left: 18px; color: var(--muted); }
+
+.card-primary { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent) inset; }
+.card-primary .card-value { color: var(--accent); }
+.formulas { margin: 0 0 8px; padding-left: 18px; }
+.formulas li { margin: 2px 0; }
+.example { margin: 0; font-weight: 600; }
+.mt { margin-top: 12px; }
+h3 { margin-top: 14px; }
+td.strong { font-weight: 600; }
+th, td { font-variant-numeric: tabular-nums; }
+
+.pill-paused { background: var(--line); color: var(--muted); }
+.legend { font-size: 12px; color: var(--muted); margin: 0 0 6px; }
+.legend span { margin-right: 14px; }
+.legend i { display: inline-block; width: 12px; height: 3px; vertical-align: middle; margin-right: 5px; }
+.legend .l-meta i { background: #2f6fed; }
+.legend .l-google i { background: #1e8449; }
+.chart-card .line-google { fill: none; stroke: var(--good); stroke-width: 2; }
+.chart-card .dot-google { fill: var(--good); }
+.muted { color: var(--muted); }
+.note { font-size: 12.5px; color: var(--muted); margin: 6px 0 0; }
+
+/* Keep wide tables inside their card instead of stretching the page. */
+main { grid-template-columns: minmax(0, 1fr); }
+main > section { min-width: 0; }
+.chart-card svg { max-width: 100%; }
+#concept-chart .chart-card svg, #concept-chart svg { max-width: 640px; }
+#tags { grid-template-columns: 1fr; }
+
+.callout { background: #f4f7fc; border: 1px solid var(--line); border-left: 4px solid #2f6fed; border-radius: 8px; padding: 10px 14px; margin: 0 0 12px; font-size: 13px; }
+.callout p { margin: 4px 0; }
+.callout ul { margin: 4px 0 0; padding-left: 18px; color: var(--muted); }
+
+details.calc summary { cursor: pointer; font-weight: 600; font-size: 14px; padding: 4px 0; }
+details.calc[open] summary { margin-bottom: 8px; }
+
+</style>
+</head>
+<body>
+  <header>
+    <div>
+      <h1>Paid performance: creative reporting one-pager</h1>
+      <p class="sub" id="window"></p>
+    </div>
+    <span class="badge">CONFIDENTIAL DATA</span>
+  </header>
+
+  <main>
+    <section class="kpis" id="kpis"></section>
+
+    <section>
+      <div id="formulas"></div>
+    </section>
+
+    <section>
+      <h2>Platform and campaign</h2>
+      <p class="hint">Channel totals use PostHog trial signups. Campaign rows use each platform's own trial count, so they rank campaigns but do not add up to the channel total.</p>
+      <div id="platforms"></div>
+    </section>
+
+    <section>
+      <h2>Creative concept breakdown</h2>
+      <p class="hint">Meta concepts come from the proposed ad-name map (needs your sign-off). Google concepts are campaign types, because Google has no ad-group data in the workbook.</p>
+      <div id="concepts"></div>
+      <div id="concept-chart" class="mt"></div>
+    </section>
+
+    <section>
+      <h2>Creative scorecard</h2>
+      <p class="hint">Each Meta creative against the Meta benchmark. Verdicts: Pause, Refresh, Scale, Keep, Too little data, Paused.</p>
+      <div id="scorecard"></div>
+      <p class="note" id="scorecard-note"></p>
+    </section>
+
+    <section>
+      <h2>Trend and change log</h2>
+      <div class="chart-grid" id="trend"></div>
+      <div class="mt" id="changes"></div>
+    </section>
+
+    <section>
+      <h2>Hook, format and campaign</h2>
+      <p class="hint">Cost per trial by family. Green is the cheapest in each chart.</p>
+      <div class="chart-grid three" id="tags"></div>
+      <div class="mt" id="tags-by-ad"></div>
+    </section>
+
+    <section>
+      <h2>Recommendations</h2>
+      <div class="two-col">
+        <div>
+          <h3>Key numbers</h3>
+          <div id="insights"></div>
+        </div>
+        <div>
+          <h3>Actions</h3>
+          <div id="recs"></div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Fatigue alerts this week</h2>
+      <p class="hint">Rule: frequency up 15% or more week over week while click-to-trial falls 15% or more.</p>
+      <div id="alerts"></div>
+    </section>
+
+    <section class="scope">
+      <h2>Data and limits</h2>
+      <div id="notes"></div>
+    </section>
+  </main>
+
+  <script>
+window.REPORT_DATA = {
+  "window": {
+    "from": "2026-08-10",
+    "to": "2026-10-11",
+    "days": 63,
+    "weeks": 9,
+    "benchmark": {
+      "spend": 249298.46,
+      "clicks": 95677,
+      "trials": 879,
+      "cost_per_trial": 283.62,
+      "click_to_trial": 0.0092,
+      "impressions": 5679756,
+      "ctr": 0.0168,
+      "unattributed_trials": 808,
+      "total_signups": 1687
+    }
+  },
+  "latest_week": "2026-10-05",
+  "benchmarks": {
+    "meta": {
+      "cost_per_trial": 289.21,
+      "basis": "Meta-reported trials and spend from the weekly ad sheet, all Meta ads combined"
+    },
+    "google": {
+      "cost_per_trial": 304.72,
+      "basis": "Google spend divided by Google-reported conversions, all Google campaigns combined"
+    }
+  },
+  "formulas": [
+    {
+      "name": "Cost per trial",
+      "formula": "Spend ÷ Trials"
+    },
+    {
+      "name": "Click-to-trial rate",
+      "formula": "Trials ÷ Clicks"
+    },
+    {
+      "name": "CTR (click-through rate)",
+      "formula": "Clicks ÷ Impressions"
+    },
+    {
+      "name": "Trial source (channel totals)",
+      "formula": "PostHog trial signups by utm_source: facebook for Meta, google for Google"
+    },
+    {
+      "name": "Trial source (campaign and creative)",
+      "formula": "Platform-reported trials: Meta reported, Google conversions"
+    }
+  ],
+  "platforms": [
+    {
+      "platform": "Meta",
+      "spend": 135639.53,
+      "clicks": 60236,
+      "trials": 509,
+      "cost_per_trial": 266.48,
+      "click_to_trial": 0.0085,
+      "trials_platform": 469,
+      "gap_pct": -0.0786,
+      "share_of_spend": 0.5441
+    },
+    {
+      "platform": "Google",
+      "spend": 113658.93,
+      "clicks": 35441,
+      "trials": 370,
+      "cost_per_trial": 307.19,
+      "click_to_trial": 0.0104,
+      "trials_platform": 373,
+      "gap_pct": 0.0081,
+      "share_of_spend": 0.4559
+    }
+  ],
+  "campaigns": [
+    {
+      "platform": "Google",
+      "campaign": "Search_Brand_US",
+      "type": "Brand search (US)",
+      "share_of_spend": 0.0791,
+      "spend": 19713.86,
+      "clicks": 11692,
+      "trials": 128,
+      "cost_per_trial": 154.01,
+      "click_to_trial": 0.0109
+    },
+    {
+      "platform": "Meta",
+      "campaign": "Prospecting_AdvantagePlus",
+      "type": "Advantage+ prospecting",
+      "share_of_spend": 0.2992,
+      "spend": 74601.73,
+      "clicks": 30985,
+      "trials": 298,
+      "cost_per_trial": 250.34,
+      "click_to_trial": 0.0096
+    },
+    {
+      "platform": "Google",
+      "campaign": "Search_NonBrand_US",
+      "type": "Non-brand search (US)",
+      "share_of_spend": 0.1779,
+      "spend": 44356.26,
+      "clicks": 10563,
+      "trials": 143,
+      "cost_per_trial": 310.18,
+      "click_to_trial": 0.0135
+    },
+    {
+      "platform": "Meta",
+      "campaign": "Prospecting_Broad",
+      "type": "Broad prospecting",
+      "share_of_spend": 0.1632,
+      "spend": 40691.86,
+      "clicks": 17034,
+      "trials": 124,
+      "cost_per_trial": 328.16,
+      "click_to_trial": 0.0073
+    },
+    {
+      "platform": "Google",
+      "campaign": "PMax_US",
+      "type": "Performance Max (US)",
+      "share_of_spend": 0.1384,
+      "spend": 34499.31,
+      "clicks": 8242,
+      "trials": 102,
+      "cost_per_trial": 338.23,
+      "click_to_trial": 0.0124
+    },
+    {
+      "platform": "Meta",
+      "campaign": "Retargeting_30d",
+      "type": "Retargeting, 30 days",
+      "share_of_spend": 0.0816,
+      "spend": 20345.94,
+      "clicks": 12217,
+      "trials": 47,
+      "cost_per_trial": 432.89,
+      "click_to_trial": 0.0038
+    },
+    {
+      "platform": "Google",
+      "campaign": "Search_NonBrand_UK",
+      "type": "Non-brand search (UK)",
+      "share_of_spend": 0.0605,
+      "spend": 15089.5,
+      "clicks": 4944,
+      "trials": 0,
+      "cost_per_trial": null,
+      "click_to_trial": 0.0
+    }
+  ],
+  "concepts": [
+    {
+      "platform": "Google",
+      "concept": "Brand search (US)",
+      "ads": 1,
+      "index": 0.51,
+      "spend": 19713.86,
+      "clicks": 11692,
+      "trials": 128,
+      "cost_per_trial": 154.01,
+      "click_to_trial": 0.0109
+    },
+    {
+      "platform": "Meta",
+      "concept": "FounderStory",
+      "ads": 1,
+      "index": 0.69,
+      "spend": 26445.6,
+      "clicks": 14282,
+      "trials": 132,
+      "cost_per_trial": 200.35,
+      "click_to_trial": 0.0092
+    },
+    {
+      "platform": "Meta",
+      "concept": "Benefits",
+      "ads": 1,
+      "index": 0.99,
+      "spend": 24877.1,
+      "clicks": 11147,
+      "trials": 87,
+      "cost_per_trial": 285.94,
+      "click_to_trial": 0.0078
+    },
+    {
+      "platform": "Meta",
+      "concept": "Screenshots",
+      "ads": 1,
+      "index": 1.04,
+      "spend": 37423.57,
+      "clicks": 16906,
+      "trials": 124,
+      "cost_per_trial": 301.8,
+      "click_to_trial": 0.0073
+    },
+    {
+      "platform": "Meta",
+      "concept": "UGC",
+      "ads": 1,
+      "index": 1.05,
+      "spend": 17263.18,
+      "clicks": 7597,
+      "trials": 57,
+      "cost_per_trial": 302.86,
+      "click_to_trial": 0.0075
+    },
+    {
+      "platform": "Google",
+      "concept": "Non-brand search (US)",
+      "ads": 1,
+      "index": 1.02,
+      "spend": 44356.26,
+      "clicks": 10563,
+      "trials": 143,
+      "cost_per_trial": 310.18,
+      "click_to_trial": 0.0135
+    },
+    {
+      "platform": "Google",
+      "concept": "Performance Max (US)",
+      "ads": 1,
+      "index": 1.11,
+      "spend": 34499.31,
+      "clicks": 8242,
+      "trials": 102,
+      "cost_per_trial": 338.23,
+      "click_to_trial": 0.0124
+    },
+    {
+      "platform": "Meta",
+      "concept": "CaseStudy",
+      "ads": 1,
+      "index": 1.33,
+      "spend": 8879.15,
+      "clicks": 3857,
+      "trials": 23,
+      "cost_per_trial": 386.05,
+      "click_to_trial": 0.006
+    },
+    {
+      "platform": "Meta",
+      "concept": "Testimonial",
+      "ads": 1,
+      "index": 1.56,
+      "spend": 20750.91,
+      "clicks": 12596,
+      "trials": 46,
+      "cost_per_trial": 451.11,
+      "click_to_trial": 0.0037
+    },
+    {
+      "platform": "Google",
+      "concept": "Non-brand search (UK)",
+      "ads": 1,
+      "index": null,
+      "spend": 15089.5,
+      "clicks": 4944,
+      "trials": 0,
+      "cost_per_trial": null,
+      "click_to_trial": 0.0
+    }
+  ],
+  "scorecard": [
+    {
+      "value": "Retargeting_Testimonial",
+      "platform": "Meta",
+      "campaign": "Retargeting_30d",
+      "concept": "Testimonial",
+      "hook": "Social",
+      "format": "TBC",
+      "audience": "Retargeting, 30 days",
+      "launched": "2026-05-05",
+      "weeks": 9,
+      "spend": 20750.91,
+      "clicks": 12596,
+      "trials": 46,
+      "impressions": 786982,
+      "ctr": 0.016,
+      "cost_per_trial": 451.11,
+      "click_to_trial": 0.0037,
+      "index": 1.56,
+      "frequency": 2.43,
+      "cpt_trend": 1.9773,
+      "verdict": "Pause",
+      "reason": "Cost per trial is 1.56x the Meta benchmark and rose 198% over the last two weeks.",
+      "weekly": [
+        {
+          "week": "2026-08-10",
+          "frequency": 2.21,
+          "c2t": 0.0044,
+          "spend": 2552.05,
+          "trials": 7
+        },
+        {
+          "week": "2026-08-17",
+          "frequency": 2.31,
+          "c2t": 0.0062,
+          "spend": 2353.68,
+          "trials": 9
+        },
+        {
+          "week": "2026-08-24",
+          "frequency": 2.46,
+          "c2t": 0.0021,
+          "spend": 2251.42,
+          "trials": 3
+        },
+        {
+          "week": "2026-08-31",
+          "frequency": 2.58,
+          "c2t": 0.0043,
+          "spend": 2304.08,
+          "trials": 6
+        },
+        {
+          "week": "2026-09-07",
+          "frequency": 2.49,
+          "c2t": 0.0035,
+          "spend": 2277.33,
+          "trials": 5
+        },
+        {
+          "week": "2026-09-14",
+          "frequency": 2.52,
+          "c2t": 0.0081,
+          "spend": 2266.08,
+          "trials": 11
+        },
+        {
+          "week": "2026-09-21",
+          "frequency": 2.54,
+          "c2t": 0.0007,
+          "spend": 2257.18,
+          "trials": 1
+        },
+        {
+          "week": "2026-09-28",
+          "frequency": 2.44,
+          "c2t": 0.0,
+          "spend": 2265,
+          "trials": 0
+        },
+        {
+          "week": "2026-10-05",
+          "frequency": 2.43,
+          "c2t": 0.0031,
+          "spend": 2224.09,
+          "trials": 4
+        }
+      ]
+    },
+    {
+      "value": "Carousel_Case_Study",
+      "platform": "Meta",
+      "campaign": "Prospecting_Broad",
+      "concept": "CaseStudy",
+      "hook": "Proof",
+      "format": "Carousel",
+      "audience": "Broad prospecting",
+      "launched": "2026-09-19",
+      "weeks": 4,
+      "spend": 8879.15,
+      "clicks": 3857,
+      "trials": 23,
+      "impressions": 321251,
+      "ctr": 0.012,
+      "cost_per_trial": 386.05,
+      "click_to_trial": 0.006,
+      "index": 1.33,
+      "frequency": 1.57,
+      "cpt_trend": 0.4358,
+      "verdict": "Refresh",
+      "reason": "Cost per trial is 1.33x the Meta benchmark.",
+      "weekly": [
+        {
+          "week": "2026-09-14",
+          "frequency": 1.38,
+          "c2t": 0.006,
+          "spend": 759.37,
+          "trials": 2
+        },
+        {
+          "week": "2026-09-21",
+          "frequency": 1.37,
+          "c2t": 0.008,
+          "spend": 2700.43,
+          "trials": 9
+        },
+        {
+          "week": "2026-09-28",
+          "frequency": 1.43,
+          "c2t": 0.0072,
+          "spend": 2771.97,
+          "trials": 9
+        },
+        {
+          "week": "2026-10-05",
+          "frequency": 1.57,
+          "c2t": 0.0026,
+          "spend": 2647.38,
+          "trials": 3
+        }
+      ]
+    },
+    {
+      "value": "Demo_Screen_Walkthrough",
+      "platform": "Meta",
+      "campaign": "Prospecting_AdvantagePlus",
+      "concept": "Screenshots",
+      "hook": "Demo",
+      "format": "Walkthrough",
+      "audience": "Advantage+ prospecting",
+      "launched": "2026-07-14",
+      "weeks": 9,
+      "spend": 37423.57,
+      "clicks": 16906,
+      "trials": 124,
+      "impressions": 1412432,
+      "ctr": 0.012,
+      "cost_per_trial": 301.8,
+      "click_to_trial": 0.0073,
+      "index": 1.04,
+      "frequency": 2.25,
+      "cpt_trend": 1.0557,
+      "verdict": "Keep",
+      "reason": "Within range of the Meta benchmark.",
+      "weekly": [
+        {
+          "week": "2026-08-10",
+          "frequency": 1.72,
+          "c2t": 0.0056,
+          "spend": 4361.81,
+          "trials": 12
+        },
+        {
+          "week": "2026-08-17",
+          "frequency": 1.75,
+          "c2t": 0.0089,
+          "spend": 3844.03,
+          "trials": 15
+        },
+        {
+          "week": "2026-08-24",
+          "frequency": 1.86,
+          "c2t": 0.0101,
+          "spend": 3687.03,
+          "trials": 16
+        },
+        {
+          "week": "2026-08-31",
+          "frequency": 1.78,
+          "c2t": 0.0145,
+          "spend": 3844.7,
+          "trials": 25
+        },
+        {
+          "week": "2026-09-07",
+          "frequency": 1.97,
+          "c2t": 0.0066,
+          "spend": 3703.4,
+          "trials": 12
+        },
+        {
+          "week": "2026-09-14",
+          "frequency": 2.01,
+          "c2t": 0.0084,
+          "spend": 3997.65,
+          "trials": 15
+        },
+        {
+          "week": "2026-09-21",
+          "frequency": 1.96,
+          "c2t": 0.0063,
+          "spend": 4717.74,
+          "trials": 14
+        },
+        {
+          "week": "2026-09-28",
+          "frequency": 2,
+          "c2t": 0.0043,
+          "spend": 4627.05,
+          "trials": 8
+        },
+        {
+          "week": "2026-10-05",
+          "frequency": 2.25,
+          "c2t": 0.0034,
+          "spend": 4640.16,
+          "trials": 7
+        }
+      ]
+    },
+    {
+      "value": "Static_AgentStack_Benefits",
+      "platform": "Meta",
+      "campaign": "Prospecting_Broad",
+      "concept": "Benefits",
+      "hook": "AgentStack",
+      "format": "Static",
+      "audience": "Broad prospecting",
+      "launched": "2026-07-28",
+      "weeks": 9,
+      "spend": 24877.1,
+      "clicks": 11147,
+      "trials": 87,
+      "impressions": 936083,
+      "ctr": 0.0119,
+      "cost_per_trial": 285.94,
+      "click_to_trial": 0.0078,
+      "index": 0.99,
+      "frequency": 2.08,
+      "cpt_trend": 2.0065,
+      "verdict": "Keep",
+      "reason": "Within range of the Meta benchmark.",
+      "weekly": [
+        {
+          "week": "2026-08-10",
+          "frequency": 1.46,
+          "c2t": 0.0081,
+          "spend": 3092.58,
+          "trials": 11
+        },
+        {
+          "week": "2026-08-17",
+          "frequency": 1.55,
+          "c2t": 0.0101,
+          "spend": 2845.53,
+          "trials": 13
+        },
+        {
+          "week": "2026-08-24",
+          "frequency": 1.72,
+          "c2t": 0.0047,
+          "spend": 2639.58,
+          "trials": 6
+        },
+        {
+          "week": "2026-08-31",
+          "frequency": 1.77,
+          "c2t": 0.0091,
+          "spend": 2732.6,
+          "trials": 11
+        },
+        {
+          "week": "2026-09-07",
+          "frequency": 1.84,
+          "c2t": 0.0106,
+          "spend": 2744.02,
+          "trials": 14
+        },
+        {
+          "week": "2026-09-14",
+          "frequency": 1.86,
+          "c2t": 0.0109,
+          "spend": 2712.57,
+          "trials": 14
+        },
+        {
+          "week": "2026-09-21",
+          "frequency": 1.92,
+          "c2t": 0.0088,
+          "spend": 2692.9,
+          "trials": 10
+        },
+        {
+          "week": "2026-09-28",
+          "frequency": 1.92,
+          "c2t": 0.0026,
+          "spend": 2679.07,
+          "trials": 3
+        },
+        {
+          "week": "2026-10-05",
+          "frequency": 2.08,
+          "c2t": 0.0044,
+          "spend": 2738.25,
+          "trials": 5
+        }
+      ]
+    },
+    {
+      "value": "UGC_Agency_Owner",
+      "platform": "Meta",
+      "campaign": "Prospecting_AdvantagePlus",
+      "concept": "UGC",
+      "hook": "AgencyOwner",
+      "format": "UGC",
+      "audience": "Advantage+ prospecting",
+      "launched": "2026-08-18",
+      "weeks": 8,
+      "spend": 17263.18,
+      "clicks": 7597,
+      "trials": 57,
+      "impressions": 643730,
+      "ctr": 0.0118,
+      "cost_per_trial": 302.86,
+      "click_to_trial": 0.0075,
+      "index": 1.05,
+      "frequency": 1.84,
+      "cpt_trend": 0.121,
+      "verdict": "Keep",
+      "reason": "Within range of the Meta benchmark.",
+      "weekly": [
+        {
+          "week": "2026-08-17",
+          "frequency": 1.44,
+          "c2t": 0.0067,
+          "spend": 1593.14,
+          "trials": 5
+        },
+        {
+          "week": "2026-08-24",
+          "frequency": 1.51,
+          "c2t": 0.0145,
+          "spend": 1841.98,
+          "trials": 12
+        },
+        {
+          "week": "2026-08-31",
+          "frequency": 1.49,
+          "c2t": 0.0076,
+          "spend": 1829.77,
+          "trials": 6
+        },
+        {
+          "week": "2026-09-07",
+          "frequency": 1.68,
+          "c2t": 0.0141,
+          "spend": 1776.37,
+          "trials": 12
+        },
+        {
+          "week": "2026-09-14",
+          "frequency": 1.55,
+          "c2t": 0.0078,
+          "spend": 2107.55,
+          "trials": 7
+        },
+        {
+          "week": "2026-09-21",
+          "frequency": 1.66,
+          "c2t": 0.0034,
+          "spend": 2711.82,
+          "trials": 4
+        },
+        {
+          "week": "2026-09-28",
+          "frequency": 1.78,
+          "c2t": 0.0035,
+          "spend": 2717.73,
+          "trials": 4
+        },
+        {
+          "week": "2026-10-05",
+          "frequency": 1.84,
+          "c2t": 0.0061,
+          "spend": 2684.82,
+          "trials": 7
+        }
+      ]
+    },
+    {
+      "value": "UGC_Founder_v2",
+      "platform": "Meta",
+      "campaign": "Prospecting_AdvantagePlus",
+      "concept": "FounderStory",
+      "hook": "Founder",
+      "format": "UGC",
+      "audience": "Advantage+ prospecting",
+      "launched": "2026-06-02",
+      "weeks": 9,
+      "spend": 26445.6,
+      "clicks": 14282,
+      "trials": 132,
+      "impressions": 1018448,
+      "ctr": 0.014,
+      "cost_per_trial": 200.35,
+      "click_to_trial": 0.0092,
+      "index": 0.69,
+      "frequency": 3.85,
+      "cpt_trend": null,
+      "verdict": "Paused",
+      "reason": "No spend in the latest week. Last active week 2026-09-14, frequency 3.85.",
+      "weekly": [
+        {
+          "week": "2026-08-10",
+          "frequency": 2.6,
+          "c2t": 0.0092,
+          "spend": 5206.61,
+          "trials": 27
+        },
+        {
+          "week": "2026-08-17",
+          "frequency": 2.85,
+          "c2t": 0.0091,
+          "spend": 4656.94,
+          "trials": 23
+        },
+        {
+          "week": "2026-08-24",
+          "frequency": 3.1,
+          "c2t": 0.0085,
+          "spend": 4517.21,
+          "trials": 21
+        },
+        {
+          "week": "2026-08-31",
+          "frequency": 3.35,
+          "c2t": 0.0083,
+          "spend": 4459.98,
+          "trials": 20
+        },
+        {
+          "week": "2026-09-07",
+          "frequency": 3.6,
+          "c2t": 0.0099,
+          "spend": 4420.05,
+          "trials": 23
+        },
+        {
+          "week": "2026-09-14",
+          "frequency": 3.85,
+          "c2t": 0.0112,
+          "spend": 3184.81,
+          "trials": 18
+        },
+        {
+          "week": "2026-09-21",
+          "frequency": 0,
+          "c2t": null,
+          "spend": 0,
+          "trials": 0
+        },
+        {
+          "week": "2026-09-28",
+          "frequency": 0,
+          "c2t": null,
+          "spend": 0,
+          "trials": 0
+        },
+        {
+          "week": "2026-10-05",
+          "frequency": 0,
+          "c2t": null,
+          "spend": 0,
+          "trials": 0
+        }
+      ]
+    }
+  ],
+  "trend": [
+    {
+      "week": "2026-08-10",
+      "spend": 27634.84,
+      "clicks": 10772,
+      "trials": 93,
+      "cost_per_trial": 297.15,
+      "click_to_trial": 0.0086,
+      "meta_cost_per_trial": 304.26,
+      "google_cost_per_trial": 288.88,
+      "meta_click_to_trial": 0.0072,
+      "google_click_to_trial": 0.0113,
+      "meta_ctr": 0.0117,
+      "google_ctr": 0.0697
+    },
+    {
+      "week": "2026-08-17",
+      "spend": 27986.35,
+      "clicks": 10936,
+      "trials": 119,
+      "cost_per_trial": 235.18,
+      "click_to_trial": 0.0109,
+      "meta_cost_per_trial": 224.9,
+      "google_cost_per_trial": 248.88,
+      "meta_click_to_trial": 0.0098,
+      "google_click_to_trial": 0.0128,
+      "meta_ctr": 0.0117,
+      "google_ctr": 0.0698
+    },
+    {
+      "week": "2026-08-24",
+      "spend": 27462.72,
+      "clicks": 10650,
+      "trials": 104,
+      "cost_per_trial": 264.06,
+      "click_to_trial": 0.0098,
+      "meta_cost_per_trial": 248.95,
+      "google_cost_per_trial": 284.67,
+      "meta_click_to_trial": 0.0089,
+      "google_click_to_trial": 0.0113,
+      "meta_ctr": 0.0117,
+      "google_ctr": 0.0684
+    },
+    {
+      "week": "2026-08-31",
+      "spend": 27865.92,
+      "clicks": 10858,
+      "trials": 118,
+      "cost_per_trial": 236.15,
+      "click_to_trial": 0.0109,
+      "meta_cost_per_trial": 219.87,
+      "google_cost_per_trial": 259.08,
+      "meta_click_to_trial": 0.01,
+      "google_click_to_trial": 0.0124,
+      "meta_ctr": 0.0119,
+      "google_ctr": 0.0695
+    },
+    {
+      "week": "2026-09-07",
+      "spend": 27704.31,
+      "clicks": 10437,
+      "trials": 124,
+      "cost_per_trial": 223.42,
+      "click_to_trial": 0.0119,
+      "meta_cost_per_trial": 233.14,
+      "google_cost_per_trial": 213.05,
+      "meta_click_to_trial": 0.0099,
+      "google_click_to_trial": 0.0151,
+      "meta_ctr": 0.0115,
+      "google_ctr": 0.0678
+    },
+    {
+      "week": "2026-09-14",
+      "spend": 27670.34,
+      "clicks": 10668,
+      "trials": 77,
+      "cost_per_trial": 359.36,
+      "click_to_trial": 0.0072,
+      "meta_cost_per_trial": 341.55,
+      "google_cost_per_trial": 383.1,
+      "meta_click_to_trial": 0.0065,
+      "google_click_to_trial": 0.0084,
+      "meta_ctr": 0.0116,
+      "google_ctr": 0.0603
+    },
+    {
+      "week": "2026-09-21",
+      "spend": 27637.65,
+      "clicks": 10464,
+      "trials": 74,
+      "cost_per_trial": 373.48,
+      "click_to_trial": 0.0071,
+      "meta_cost_per_trial": 301.6,
+      "google_cost_per_trial": 523.23,
+      "meta_click_to_trial": 0.0077,
+      "google_click_to_trial": 0.0061,
+      "meta_ctr": 0.0116,
+      "google_ctr": 0.0592
+    },
+    {
+      "week": "2026-09-28",
+      "spend": 27770.09,
+      "clicks": 10517,
+      "trials": 99,
+      "cost_per_trial": 280.51,
+      "click_to_trial": 0.0094,
+      "meta_cost_per_trial": 246.9,
+      "google_cost_per_trial": 334.45,
+      "meta_click_to_trial": 0.0093,
+      "google_click_to_trial": 0.0095,
+      "meta_ctr": 0.0121,
+      "google_ctr": 0.0585
+    },
+    {
+      "week": "2026-10-05",
+      "spend": 27566.24,
+      "clicks": 10375,
+      "trials": 71,
+      "cost_per_trial": 388.26,
+      "click_to_trial": 0.0068,
+      "meta_cost_per_trial": 347.32,
+      "google_cost_per_trial": 451.13,
+      "meta_click_to_trial": 0.0067,
+      "google_click_to_trial": 0.007,
+      "meta_ctr": 0.0119,
+      "google_ctr": 0.0589
+    }
+  ],
+  "tags": {
+    "concept": [
+      {
+        "value": "FounderStory",
+        "spend": 26445.6,
+        "clicks": 14282,
+        "trials": 132,
+        "cost_per_trial": 200.35,
+        "click_to_trial": 0.0092
+      },
+      {
+        "value": "Benefits",
+        "spend": 24877.1,
+        "clicks": 11147,
+        "trials": 87,
+        "cost_per_trial": 285.94,
+        "click_to_trial": 0.0078
+      },
+      {
+        "value": "Screenshots",
+        "spend": 37423.57,
+        "clicks": 16906,
+        "trials": 124,
+        "cost_per_trial": 301.8,
+        "click_to_trial": 0.0073
+      },
+      {
+        "value": "UGC",
+        "spend": 17263.18,
+        "clicks": 7597,
+        "trials": 57,
+        "cost_per_trial": 302.86,
+        "click_to_trial": 0.0075
+      },
+      {
+        "value": "CaseStudy",
+        "spend": 8879.15,
+        "clicks": 3857,
+        "trials": 23,
+        "cost_per_trial": 386.05,
+        "click_to_trial": 0.006
+      },
+      {
+        "value": "Testimonial",
+        "spend": 20750.91,
+        "clicks": 12596,
+        "trials": 46,
+        "cost_per_trial": 451.11,
+        "click_to_trial": 0.0037
+      }
+    ],
+    "hook": [
+      {
+        "value": "Founder",
+        "spend": 26445.6,
+        "clicks": 14282,
+        "trials": 132,
+        "cost_per_trial": 200.35,
+        "click_to_trial": 0.0092
+      },
+      {
+        "value": "AgentStack",
+        "spend": 24877.1,
+        "clicks": 11147,
+        "trials": 87,
+        "cost_per_trial": 285.94,
+        "click_to_trial": 0.0078
+      },
+      {
+        "value": "Demo",
+        "spend": 37423.57,
+        "clicks": 16906,
+        "trials": 124,
+        "cost_per_trial": 301.8,
+        "click_to_trial": 0.0073
+      },
+      {
+        "value": "AgencyOwner",
+        "spend": 17263.18,
+        "clicks": 7597,
+        "trials": 57,
+        "cost_per_trial": 302.86,
+        "click_to_trial": 0.0075
+      },
+      {
+        "value": "Proof",
+        "spend": 8879.15,
+        "clicks": 3857,
+        "trials": 23,
+        "cost_per_trial": 386.05,
+        "click_to_trial": 0.006
+      },
+      {
+        "value": "Social",
+        "spend": 20750.91,
+        "clicks": 12596,
+        "trials": 46,
+        "cost_per_trial": 451.11,
+        "click_to_trial": 0.0037
+      }
+    ],
+    "format": [
+      {
+        "value": "UGC",
+        "spend": 43708.78,
+        "clicks": 21879,
+        "trials": 189,
+        "cost_per_trial": 231.26,
+        "click_to_trial": 0.0086
+      },
+      {
+        "value": "Static",
+        "spend": 24877.1,
+        "clicks": 11147,
+        "trials": 87,
+        "cost_per_trial": 285.94,
+        "click_to_trial": 0.0078
+      },
+      {
+        "value": "Walkthrough",
+        "spend": 37423.57,
+        "clicks": 16906,
+        "trials": 124,
+        "cost_per_trial": 301.8,
+        "click_to_trial": 0.0073
+      },
+      {
+        "value": "Carousel",
+        "spend": 8879.15,
+        "clicks": 3857,
+        "trials": 23,
+        "cost_per_trial": 386.05,
+        "click_to_trial": 0.006
+      },
+      {
+        "value": "TBC",
+        "spend": 20750.91,
+        "clicks": 12596,
+        "trials": 46,
+        "cost_per_trial": 451.11,
+        "click_to_trial": 0.0037
+      }
+    ]
+  },
+  "changes": [
+    {
+      "date": "2026-10-06",
+      "change": "Google: added 40 negative keywords to Search_NonBrand_US",
+      "owner": "Paid",
+      "cost_per_trial_before": 331.66,
+      "cost_per_trial_after": 363.15,
+      "days_before": 14,
+      "days_after": 6,
+      "partial": true,
+      "change_pct": 0.0949
+    },
+    {
+      "date": "2026-09-29",
+      "change": "Pricing page: added annual plan toggle",
+      "owner": "Product",
+      "cost_per_trial_before": 350.85,
+      "cost_per_trial_after": 339.62,
+      "days_before": 14,
+      "days_after": 13,
+      "partial": true,
+      "change_pct": -0.032
+    },
+    {
+      "date": "2026-09-22",
+      "change": "Website: signup flow v3 launched (new signup and trial pages)",
+      "owner": "Web / Dev",
+      "cost_per_trial_before": 285.16,
+      "cost_per_trial_after": 331.66,
+      "days_before": 14,
+      "days_after": 14,
+      "partial": false,
+      "change_pct": 0.1631
+    },
+    {
+      "date": "2026-09-19",
+      "change": "Meta: paused UGC_Founder_v2 (creative refresh). Launched Carousel_Case_Study",
+      "owner": "Creative",
+      "cost_per_trial_before": 256.72,
+      "cost_per_trial_after": 335.53,
+      "days_before": 14,
+      "days_after": 14,
+      "partial": false,
+      "change_pct": 0.307
+    },
+    {
+      "date": "2026-09-15",
+      "change": "Google: launched Search_NonBrand_UK, added to Google_Main_Shared budget",
+      "owner": "Paid",
+      "cost_per_trial_before": 233.2,
+      "cost_per_trial_after": 350.85,
+      "days_before": 14,
+      "days_after": 14,
+      "partial": false,
+      "change_pct": 0.5045
+    },
+    {
+      "date": "2026-09-08",
+      "change": "Meta: raised Retargeting_30d audience window from 14 to 30 days",
+      "owner": "Paid",
+      "cost_per_trial_before": 240.45,
+      "cost_per_trial_after": 285.16,
+      "days_before": 14,
+      "days_after": 14,
+      "partial": false,
+      "change_pct": 0.1859
+    },
+    {
+      "date": "2026-09-02",
+      "change": "Website: new blog post on agentic SEO published",
+      "owner": "Content",
+      "cost_per_trial_before": 253.16,
+      "cost_per_trial_after": 229.4,
+      "days_before": 14,
+      "days_after": 14,
+      "partial": false,
+      "change_pct": -0.0939
+    },
+    {
+      "date": "2026-08-26",
+      "change": "Lifecycle: new trial onboarding email sequence live",
+      "owner": "Lifecycle",
+      "cost_per_trial_before": 264.64,
+      "cost_per_trial_after": 236.04,
+      "days_before": 14,
+      "days_after": 14,
+      "partial": false,
+      "change_pct": -0.1081
+    },
+    {
+      "date": "2026-08-18",
+      "change": "Meta: launched UGC_Agency_Owner ad",
+      "owner": "Creative",
+      "cost_per_trial_before": 290.96,
+      "cost_per_trial_after": 248.27,
+      "days_before": 8,
+      "days_after": 14,
+      "partial": true,
+      "change_pct": -0.1467
+    },
+    {
+      "date": "2026-08-12",
+      "change": "Google: new ad copy test on Search_NonBrand_US (2 headlines)",
+      "owner": "Paid",
+      "cost_per_trial_before": 307.54,
+      "cost_per_trial_after": 264.64,
+      "days_before": 2,
+      "days_after": 14,
+      "partial": true,
+      "change_pct": -0.1395
+    }
+  ],
+  "alerts": [],
+  "insights": [
+    {
+      "title": "Paid cost per trial",
+      "text": "Paid cost per trial is $283.62 across $249,298 spend and 879 PostHog trials."
+    },
+    {
+      "title": "Click-to-trial rate",
+      "text": "Paid click-to-trial is 0.92%: Google 1.04%, Meta 0.85%."
+    },
+    {
+      "title": "Channel cost per trial",
+      "text": "Meta $266.48 per trial, Google $307.19 per trial."
+    },
+    {
+      "title": "Best Meta creative on cost",
+      "text": "UGC_Founder_v2 runs at $200.35 per trial (132 trials)."
+    },
+    {
+      "title": "Paused: UGC_Founder_v2",
+      "text": "Paused after 2026-09-14 at frequency 3.85. Click-to-trial went from 0.92% to 1.12% over its active weeks, so the fatigue rule did not fire."
+    }
+  ],
+  "recommendations": [
+    {
+      "priority": "high",
+      "title": "Check tracking on Search_NonBrand_UK before more spend",
+      "action": "Confirm conversion tracking and the landing path for this campaign. Pause or cap it until a trial is tracked.",
+      "why": "$15,090 spend with 0 Google conversions over 63 days."
+    },
+    {
+      "priority": "high",
+      "title": "Pause Retargeting_Testimonial",
+      "action": "Stop new spend and move budget to the best-performing concept.",
+      "why": "Cost per trial is 1.56x the Meta benchmark and rose 198% over the last two weeks."
+    },
+    {
+      "priority": "high",
+      "title": "Agree one trial number before reporting cost per trial",
+      "action": "Pick PostHog or platform-reported trials as the reporting source, and fix the attribution gap.",
+      "why": "Meta reports 469 trials, PostHog 509."
+    },
+    {
+      "priority": "medium",
+      "title": "Refresh Carousel_Case_Study",
+      "action": "Brief a new version that keeps the hook and format. Test it on the same audience.",
+      "why": "Cost per trial is 1.33x the Meta benchmark."
+    },
+    {
+      "priority": "medium",
+      "title": "Adopt the naming convention on new ads",
+      "action": "Confirm the proposed concept, hook, format and variant map, then block launches whose names do not pass the check.",
+      "why": "6 Meta ads and 4 Google campaigns do not follow CONCEPT_HOOK_FORMAT_AUDIENCE_VARIANT."
+    }
+  ],
+  "data_quality": [
+    {
+      "title": "No Google ad groups",
+      "text": "The workbook has 4 Google campaigns and no ad-group or ad-level rows, so Google has no creative breakdown."
+    },
+    {
+      "title": "Meta clicks do not match",
+      "text": "Meta daily clicks total 60,236; weekly ad clicks total 66,385 (+10.2%). Campaign clicks use the daily sheet; creative clicks use the weekly sheet."
+    },
+    {
+      "title": "Meta trials do not match PostHog",
+      "text": "Meta reports 469 trials; PostHog attributes 509 to facebook (+8.5%). Channel totals use PostHog."
+    },
+    {
+      "title": "Google trials are close to PostHog",
+      "text": "Google reports 373 conversions; PostHog attributes 370 to google."
+    },
+    {
+      "title": "Unattributed signups",
+      "text": "808 of 1,687 signups (48%) came from organic or direct, outside paid cost per trial."
+    }
+  ],
+  "parse_errors": [
+    {
+      "ad_name": "Retargeting_Testimonial",
+      "problem": "Mapping status is 'unconfirmed'. Confirm the format before trusting this ad's breakdown."
+    }
+  ],
+  "scope": "Built from the Paid Performance Assessment workbook. Trials are PostHog signups for channel totals and platform-reported for creatives and campaigns. No paying-customer data."
+};
+
+</script>
+  <script>
+(function () {
+  "use strict";
+
+  const R = window.REPORT_DATA;
+  const NS = "http://www.w3.org/2000/svg";
+  const W = R.window;
+  const B = W.benchmark;
+
+  const fmt = {
+    pct: v => (v == null ? "–" : (v * 100).toFixed(2) + "%"),
+    num: v => (v == null ? "–" : v.toFixed(2)),
+    money: v => (v == null ? "–" : "$" + v.toLocaleString("en-CA", { maximumFractionDigits: 2 })),
+    money0: v => (v == null ? "–" : "$" + Math.round(v).toLocaleString("en-CA")),
+    int: v => (v == null ? "–" : Math.round(v).toLocaleString("en-CA")),
+    delta: v => (v == null ? "–" : (v >= 0 ? "+" : "") + (v * 100).toFixed(1) + "%"),
+    index: v => (v == null ? "–" : v.toFixed(2) + "x"),
+  };
+
+  // Build elements with textContent only, never innerHTML, so names from data cannot inject markup.
+  function h(tag, attrs, ...kids) {
+    const node = document.createElement(tag);
+    for (const [k, v] of Object.entries(attrs || {})) {
+      if (k === "class") node.className = v;
+      else if (k === "text") node.textContent = v;
+      else node.setAttribute(k, v);
+    }
+    for (const kid of kids.flat(Infinity)) {
+      if (kid == null) continue;
+      node.append(kid instanceof Node ? kid : document.createTextNode(String(kid)));
+    }
+    return node;
+  }
+
+  function svg(tag, attrs, ...kids) {
+    const node = document.createElementNS(NS, tag);
+    for (const [k, v] of Object.entries(attrs || {})) node.setAttribute(k, v);
+    for (const kid of kids.flat(Infinity)) {
+      if (kid == null) continue;
+      node.append(kid instanceof Node ? kid : document.createTextNode(String(kid)));
+    }
+    return node;
+  }
+
+  const badIfUp = v => (v == null ? "" : v > 0 ? "bad" : "good");
+  const badIfIndexUp = v => (v == null ? "" : v > 1 ? "bad" : "good");
+
+  function table(head, body) {
+    return h("div", { class: "table-wrap" },
+      h("table", {},
+        h("thead", {}, h("tr", {}, head.map(t => h("th", { text: t })))),
+        h("tbody", {}, body)));
+  }
+
+  // Short month-day label from an ISO date.
+  const md = iso => {
+    const d = new Date(iso + "T00:00:00Z");
+    return d.toLocaleDateString("en-CA", { month: "short", day: "numeric", timeZone: "UTC" });
+  };
+
+  function renderHeader() {
+    document.getElementById("window").textContent =
+      `${md(W.from)} to ${md(W.to)} ${new Date(W.to + "T00:00:00Z").getUTCFullYear()} · ${W.days} days, ${W.weeks} weeks · latest week starts ${R.latest_week} · sources: Meta, Google, PostHog`;
+  }
+
+  function renderKpis() {
+    const cards = [
+      ["CPA (cost per trial)", fmt.money(B.cost_per_trial), true],
+      ["Click-to-trial rate", fmt.pct(B.click_to_trial), true],
+      ["CTR", fmt.pct(B.ctr), true],
+      ["Spend", fmt.money0(B.spend)],
+    ];
+    document.getElementById("kpis").replaceChildren(...cards.map(([name, value, primary]) =>
+      h("div", { class: primary ? "card card-primary" : "card" },
+        h("div", { class: "card-label", text: name }),
+        h("div", { class: "card-value", text: String(value) }))));
+  }
+
+  function renderFormulas() {
+    const example = `${fmt.money0(B.spend)} ÷ ${fmt.int(B.trials)} trials = ${fmt.money(B.cost_per_trial)}`;
+    const ctr = `${fmt.int(B.trials)} trials ÷ ${fmt.int(B.clicks)} clicks = ${fmt.pct(B.click_to_trial)}`;
+    const ctrEx = `${fmt.int(B.clicks)} clicks ÷ ${fmt.int(B.impressions)} impressions = ${fmt.pct(B.ctr)}`;
+    document.getElementById("formulas").replaceChildren(
+      h("details", { class: "calc" },
+        h("summary", { text: "How the numbers are calculated (click to expand)" }),
+        h("ul", { class: "formulas" }, R.formulas.map(f => h("li", {}, h("strong", { text: f.name + ": " }), f.formula))),
+        h("p", { class: "example", text: "CPA, all paid channels: " + example }),
+        h("p", { class: "example", text: "Click-to-trial, all paid channels: " + ctr }),
+        h("p", { class: "example", text: "CTR, all paid channels: " + ctrEx }),
+        h("p", { class: "note", text: `${fmt.int(B.unattributed_trials)} of ${fmt.int(B.total_signups)} signups (${fmt.pct(B.unattributed_trials / B.total_signups)}) came from organic or direct and are not in CPA.` })));
+  }
+
+  function renderPlatforms() {
+    const pBody = R.platforms.map(p => h("tr", {},
+      h("td", { class: "tag", text: p.platform }),
+      h("td", { text: fmt.money0(p.spend) }),
+      h("td", { text: fmt.pct(p.share_of_spend) }),
+      h("td", { text: fmt.int(p.clicks) }),
+      h("td", { text: fmt.int(p.trials) }),
+      h("td", { class: "strong", text: fmt.money(p.cost_per_trial) }),
+      h("td", { text: fmt.pct(p.click_to_trial) }),
+      h("td", { text: fmt.int(p.trials_platform) }),
+      h("td", { class: Math.abs(p.gap_pct) > 0.05 ? "bad" : "good", text: fmt.delta(p.gap_pct) })));
+    const cBody = R.campaigns.map(c => h("tr", {},
+      h("td", { class: "tag", text: c.campaign }),
+      h("td", { class: "tags", text: c.platform + " · " + c.type }),
+      h("td", { text: fmt.money0(c.spend) }),
+      h("td", { text: fmt.pct(c.share_of_spend) }),
+      h("td", { text: fmt.int(c.clicks) }),
+      h("td", { text: fmt.int(c.trials) }),
+      h("td", { class: "strong", text: c.trials ? fmt.money(c.cost_per_trial) : "no trials" }),
+      h("td", { text: fmt.pct(c.click_to_trial) })));
+    document.getElementById("platforms").replaceChildren(
+      h("h3", { text: "By platform (channel totals use PostHog trials)" }),
+      table(["Platform", "Spend", "Share of spend", "Clicks", "Trials (PostHog)", "Cost per trial", "Click-to-trial", "Trials, platform-reported", "Platform vs PostHog"], pBody),
+      h("h3", { text: "By campaign (trials are platform-reported)" }),
+      table(["Campaign", "Platform · type", "Spend", "Share of spend", "Clicks", "Trials", "Cost per trial", "Click-to-trial"], cBody));
+  }
+
+  function renderConcepts() {
+    const body = R.concepts.map(c => h("tr", {},
+      h("td", { class: "tag", text: c.platform }),
+      h("td", { class: "tags", text: c.concept }),
+      h("td", { text: fmt.int(c.ads) }),
+      h("td", { text: fmt.money0(c.spend) }),
+      h("td", { text: fmt.int(c.clicks) }),
+      h("td", { text: fmt.int(c.trials) }),
+      h("td", { class: "strong", text: fmt.money(c.cost_per_trial) }),
+      h("td", { text: fmt.pct(c.click_to_trial) }),
+      h("td", { class: badIfIndexUp(c.index), text: fmt.index(c.index) })));
+    const bm = R.benchmarks;
+    const callout = h("div", { class: "callout" },
+      h("strong", { text: "What the index compares against (platform benchmark)" }),
+      h("p", { text: `Index = concept cost per trial ÷ its platform benchmark. 1.00x is average. Lower is cheaper.` }),
+      h("ul", {},
+        h("li", { text: `Meta benchmark: ${fmt.money(bm.meta.cost_per_trial)}. ${bm.meta.basis}.` }),
+        h("li", { text: `Google benchmark: ${fmt.money(bm.google.cost_per_trial)}. ${bm.google.basis}.` }),
+        h("li", { text: "Meta concepts are never compared with Google, and the reverse. Benchmarks use platform-reported trials, so they can differ from the PostHog channel cost per trial above." })));
+    document.getElementById("concepts").replaceChildren(
+      callout,
+      table(["Platform", "Concept (Meta creative concept, or Google campaign type)", "Ads", "Spend", "Clicks", "Trials", "Cost per trial", "Click-to-trial", "Index"], body));
+
+    const items = R.concepts
+      .filter(c => c.cost_per_trial != null)
+      .map(c => ({ label: c.platform + " · " + c.concept, value: c.cost_per_trial }));
+    document.getElementById("concept-chart").replaceChildren(
+      barChart("Cost per trial by concept (green = lowest, red = highest)", items, fmt.money, 26));
+  }
+
+  // Line chart, one or two series. Null points are skipped.
+  function lineChart(title, series, fmtY, legend) {
+    const VW = 640, VH = 220, L = 70, RM = 16, T = 16, B2 = 34;
+    const all = series.flatMap(s => s.points.map(p => p.y)).filter(v => v != null);
+    const lo = Math.min(...all), hi = Math.max(...all), span = hi - lo || 1;
+    const n = series[0].points.length;
+    const x = i => L + (n === 1 ? (VW - L - RM) / 2 : i * (VW - L - RM) / (n - 1));
+    const y = v => T + (VH - T - B2) * (1 - (v - lo) / span);
+    const ticks = [lo, lo + span / 2, hi];
+    const plotted = series.map(s => {
+      const pts = s.points.map((p, i) => p.y == null ? null : [x(i), y(p.y)]).filter(Boolean);
+      const d = pts.map((p, i) => (i ? "L" : "M") + p[0].toFixed(1) + " " + p[1].toFixed(1)).join(" ");
+      return { cls: s.cls, pts, d };
+    });
+    const labels = series[0].points.map((p, i) => (i % 2 === 0 || n < 8)
+      ? svg("text", { class: "tick", x: x(i), y: VH - 10, "text-anchor": "middle" }, md(p.x)) : null);
+    return h("div", { class: "chart-card" },
+      h("h3", { text: title }),
+      legend ? h("p", { class: "legend" },
+        h("span", { class: "l-meta" }, h("i"), legend[0]),
+        h("span", { class: "l-google" }, h("i"), legend[1])) : null,
+      svg("svg", { viewBox: `0 0 ${VW} ${VH}`, role: "img", "aria-label": title },
+        ticks.map(t => svg("g", {},
+          svg("line", { class: "axis", x1: L, x2: VW - RM, y1: y(t), y2: y(t) }),
+          svg("text", { class: "tick", x: L - 8, y: y(t) + 4, "text-anchor": "end" }, fmtY(t)))),
+        plotted.map(p => svg("path", { class: p.cls === "google" ? "line-google" : "line", d: p.d })),
+        plotted.map(p => p.pts.map(q => svg("circle", { class: p.cls === "google" ? "dot-google" : "dot", cx: q[0], cy: q[1], r: 3 }))),
+        labels));
+  }
+
+  // Horizontal bars; lowest value green, highest red.
+  function barChart(title, items, fmtV, rowH) {
+    const VW = 640, L = 260, RM = 80, T = 8;
+    const rh = rowH || 24;
+    const VH = T + items.length * rh + 6;
+    if (!items.length) return h("div", { class: "chart-card" }, h("h3", { text: title }), h("p", { class: "hint", text: "No data." }));
+    const vals = items.map(i => i.value).filter(v => v != null);
+    const max = Math.max(...vals) || 1, lo = Math.min(...vals), hi = Math.max(...vals);
+    const cls = v => (v === lo ? "bar-best" : v === hi ? "bar-worst" : "bar");
+    return h("div", { class: "chart-card" },
+      h("h3", { text: title }),
+      svg("svg", { viewBox: `0 0 ${VW} ${VH}`, role: "img", "aria-label": title },
+        items.map((it, i) => {
+          const yy = T + i * rh;
+          const w = (VW - L - RM) * ((it.value || 0) / max);
+          return svg("g", {},
+            svg("text", { class: "lbl", x: L - 8, y: yy + 16, "text-anchor": "end" }, it.label),
+            svg("rect", { class: cls(it.value), x: L, y: yy + 4, width: Math.max(w, 1), height: rh - 9, rx: 3 }),
+            svg("text", { class: "val", x: L + w + 6, y: yy + 16 }, fmtV(it.value)));
+        })));
+  }
+
+  function renderCharts() {
+    const tr = R.trend;
+    document.getElementById("trend").replaceChildren(
+      lineChart("Cost per trial by week: Meta vs Google", [
+        { cls: "meta", points: tr.map(t => ({ x: t.week, y: t.meta_cost_per_trial })) },
+        { cls: "google", points: tr.map(t => ({ x: t.week, y: t.google_cost_per_trial })) },
+      ], v => "$" + v.toFixed(0), ["Meta", "Google"]),
+      lineChart("Click-to-trial rate by week: Meta vs Google", [
+        { cls: "meta", points: tr.map(t => ({ x: t.week, y: t.meta_click_to_trial })) },
+        { cls: "google", points: tr.map(t => ({ x: t.week, y: t.google_click_to_trial })) },
+      ], v => (v * 100).toFixed(2) + "%", ["Meta", "Google"]),
+      lineChart("CTR by week: Meta vs Google", [
+        { cls: "meta", points: tr.map(t => ({ x: t.week, y: t.meta_ctr })) },
+        { cls: "google", points: tr.map(t => ({ x: t.week, y: t.google_ctr })) },
+      ], v => (v * 100).toFixed(2) + "%", ["Meta", "Google"]),
+    );
+
+    const pick = dim => (R.tags[dim] || []).filter(e => e.cost_per_trial != null).map(e => ({ label: e.value, value: e.cost_per_trial }));
+    const campaignItems = R.campaigns.filter(c => c.cost_per_trial != null).map(c => ({ label: c.campaign, value: c.cost_per_trial }));
+    document.getElementById("tags").replaceChildren(
+      barChart("Hook: cost per trial (Meta)", pick("hook"), fmt.money, 22),
+      barChart("Format: cost per trial (Meta)", pick("format"), fmt.money, 22),
+      barChart("Campaign: cost per trial (platform-reported)", campaignItems, fmt.money, 22));
+
+    const adBody = R.scorecard.map(s => h("tr", {},
+      h("td", { class: "tag", text: s.value }),
+      h("td", { class: "tags", text: s.campaign }),
+      h("td", { text: s.hook || "–" }),
+      h("td", { text: s.format || "–" }),
+      h("td", { text: fmt.money0(s.spend) }),
+      h("td", { text: fmt.int(s.impressions) }),
+      h("td", { text: fmt.pct(s.ctr) }),
+      h("td", { text: fmt.pct(s.click_to_trial) }),
+      h("td", { class: "strong", text: fmt.money(s.cost_per_trial) })));
+    document.getElementById("tags-by-ad").replaceChildren(
+      h("h3", { text: "Per ad: CTR, click-to-trial and CPA (cost per trial)" }),
+      table(["Ad", "Campaign", "Hook", "Format", "Spend", "Impressions", "CTR", "Click-to-trial", "CPA (cost per trial)"], adBody));
+  }
+
+  function renderScorecard() {
+    const head = ["Creative", "Campaign", "Concept", "Launched", "Spend", "Trials", "Cost per trial", "Index", "Click-to-trial", "Frequency", "CPA trend, last 2 wks", "Verdict", "Why"];
+    const pill = v => h("span", { class: "pill pill-" + v.toLowerCase().replace(/ /g, "-"), text: v });
+    const body = R.scorecard.map(s => h("tr", {},
+      h("td", { class: "tag", text: s.value }),
+      h("td", { class: "tags", text: s.campaign }),
+      h("td", { class: "tags", text: s.concept }),
+      h("td", { text: s.launched }),
+      h("td", { text: fmt.money0(s.spend) }),
+      h("td", { text: fmt.int(s.trials) }),
+      h("td", { class: "strong", text: fmt.money(s.cost_per_trial) }),
+      h("td", { class: badIfIndexUp(s.index), text: fmt.index(s.index) }),
+      h("td", { text: fmt.pct(s.click_to_trial) }),
+      h("td", { text: fmt.num(s.frequency) }),
+      h("td", { class: badIfUp(s.cpt_trend), text: fmt.delta(s.cpt_trend) }),
+      h("td", {}, pill(s.verdict)),
+      h("td", { class: "why", text: s.reason })));
+    document.getElementById("scorecard").replaceChildren(table(head, body));
+    document.getElementById("scorecard-note").textContent =
+      `Meta creatives only. Index compares each creative with the Meta benchmark of ${fmt.money(R.benchmarks.meta.cost_per_trial)} (platform-reported trials). Google has no ad-group data, so it has no creative rows.`;
+  }
+
+  function renderChanges() {
+    const body = R.changes.map(c => h("tr", {},
+      h("td", { text: c.date }),
+      h("td", { text: c.owner }),
+      h("td", { class: "why", text: c.change }),
+      h("td", { text: fmt.money(c.cost_per_trial_before) }),
+      h("td", { text: fmt.money(c.cost_per_trial_after) }),
+      h("td", { class: badIfUp(c.change_pct), text: fmt.delta(c.change_pct) }),
+      h("td", { class: c.partial ? "muted" : "", text: c.partial ? c.days_after + "d after" : "full window" })));
+    document.getElementById("changes").replaceChildren(
+      table(["Date", "Owner", "Change", "Cost per trial, 14d before", "Cost per trial, 14d after", "Change", "Window"], body),
+      h("p", { class: "note", text: "Before and after windows, not a controlled test. Other changes often overlap, and partial windows are marked." }));
+  }
+
+  function renderRecs() {
+    document.getElementById("recs").replaceChildren(...R.recommendations.map(r =>
+      h("div", { class: "rec rec-" + r.priority },
+        h("div", { class: "rec-prio", text: r.priority + " priority" }),
+        h("div", { class: "rec-title", text: r.title }),
+        h("p", { class: "rec-action", text: r.action }),
+        h("p", { class: "rec-why", text: "Why: " + r.why }))));
+  }
+
+  function renderInsights() {
+    document.getElementById("insights").replaceChildren(...R.insights.map(i =>
+      h("div", { class: "brief" },
+        h("div", { class: "brief-rank", text: i.title }),
+        h("p", { class: "brief-line", text: i.text }))));
+  }
+
+  function renderAlerts() {
+    const root = document.getElementById("alerts");
+    if (!R.alerts.length) {
+      root.replaceChildren(h("p", { class: "ok", text: "No fatigue flags this week. The fatigue rule did not fire on any active creative." }));
+      return;
+    }
+    root.replaceChildren(...R.alerts.map(a =>
+      h("div", { class: "alert" },
+        h("div", { class: "alert-dim", text: "Creative" }),
+        h("div", { class: "alert-msg", text: a.message }))));
+  }
+
+  function renderNotes() {
+    const dq = R.data_quality.map(q => q.title + ". " + q.text);
+    const pe = R.parse_errors.map(e => `${e.ad_name}: ${e.problem}`);
+    document.getElementById("notes").replaceChildren(
+      h("ul", { class: "notes" }, [...dq, ...pe, R.scope].map(t => h("li", { text: t }))));
+  }
+
+  renderHeader();
+  renderKpis();
+  renderFormulas();
+  renderPlatforms();
+  renderConcepts();
+  renderCharts();
+  renderScorecard();
+  renderChanges();
+  renderInsights();
+  renderRecs();
+  renderAlerts();
+  renderNotes();
+})();
+
+</script>
+</body>
+</html>
