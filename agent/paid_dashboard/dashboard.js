@@ -67,6 +67,7 @@
       ["CPA (cost per trial)", fmt.money(B.cost_per_trial), true],
       ["Click-to-trial rate", fmt.pct(B.click_to_trial), true],
       ["CTR", fmt.pct(B.ctr), true],
+      ["Spend", fmt.money0(B.spend)],
     ];
     document.getElementById("kpis").replaceChildren(...cards.map(([name, value, primary]) =>
       h("div", { class: primary ? "card card-primary" : "card" },

@@ -78,6 +78,7 @@
       ["CPA (trial CPA), 90 days", fmt.money(B.trial_cpa), true],
       ["Click-to-trial, 90 days", fmt.pct(B.click_to_trial), true],
       ["CTR, 90 days", fmt.pct(B.ctr), true],
+      ["Spend, 90 days", fmt.money0(B.spend)],
     ];
     document.getElementById("kpis").replaceChildren(...cards.map(([name, value, primary]) =>
       h("div", { class: primary ? "card card-primary" : "card" },
