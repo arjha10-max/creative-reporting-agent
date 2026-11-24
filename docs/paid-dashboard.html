@@ -152,6 +152,10 @@ main > section { min-width: 0; }
 details.calc summary { cursor: pointer; font-weight: 600; font-size: 14px; padding: 4px 0; }
 details.calc[open] summary { margin-bottom: 8px; }
 
+.chart-wrap { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.chart-insight { margin: 0; font-size: 13px; color: var(--ink); }
+.chart-reco { margin: 0; font-size: 13px; color: var(--muted); }
+
 </style>
 </head>
 <body>
@@ -1112,6 +1116,20 @@ window.REPORT_DATA = {
       "google_ctr": 0.0589
     }
   ],
+  "chart_notes": {
+    "cost_per_trial": {
+      "insight": "Meta $347.32 latest week, up 24% vs its prior 4-week average; Google $451.13, up 24%.",
+      "reco": "Review the creatives flagged in the scorecard before adding budget; cost per trial moved more than 10% the wrong way."
+    },
+    "click_to_trial": {
+      "insight": "Meta 0.67% latest week, down 20% vs its prior 4-week average; Google 0.70%, down 28%.",
+      "reco": "Review the creatives flagged in the scorecard before adding budget; click-to-trial moved more than 10% the wrong way."
+    },
+    "ctr": {
+      "insight": "Meta 1.19% latest week, up 2% vs its prior 4-week average; Google 5.89%, down 4%.",
+      "reco": "No change. Both platforms are within 10% of their recent average."
+    }
+  },
   "tags": {
     "concept": [
       {
@@ -1658,19 +1676,23 @@ window.REPORT_DATA = {
 
   function renderCharts() {
     const tr = R.trend;
+    const note = (key, card) => h("div", { class: "chart-wrap" },
+      card,
+      h("p", { class: "chart-insight", text: "Insight: " + R.chart_notes[key].insight }),
+      h("p", { class: "chart-reco", text: "Action: " + R.chart_notes[key].reco }));
     document.getElementById("trend").replaceChildren(
-      lineChart("Cost per trial by week: Meta vs Google", [
+      note("cost_per_trial", lineChart("Cost per trial by week: Meta vs Google", [
         { cls: "meta", points: tr.map(t => ({ x: t.week, y: t.meta_cost_per_trial })) },
         { cls: "google", points: tr.map(t => ({ x: t.week, y: t.google_cost_per_trial })) },
-      ], v => "$" + v.toFixed(0), ["Meta", "Google"]),
-      lineChart("Click-to-trial rate by week: Meta vs Google", [
+      ], v => "$" + v.toFixed(0), ["Meta", "Google"])),
+      note("click_to_trial", lineChart("Click-to-trial rate by week: Meta vs Google", [
         { cls: "meta", points: tr.map(t => ({ x: t.week, y: t.meta_click_to_trial })) },
         { cls: "google", points: tr.map(t => ({ x: t.week, y: t.google_click_to_trial })) },
-      ], v => (v * 100).toFixed(2) + "%", ["Meta", "Google"]),
-      lineChart("CTR by week: Meta vs Google", [
+      ], v => (v * 100).toFixed(2) + "%", ["Meta", "Google"])),
+      note("ctr", lineChart("CTR by week: Meta vs Google", [
         { cls: "meta", points: tr.map(t => ({ x: t.week, y: t.meta_ctr })) },
         { cls: "google", points: tr.map(t => ({ x: t.week, y: t.google_ctr })) },
-      ], v => (v * 100).toFixed(2) + "%", ["Meta", "Google"]),
+      ], v => (v * 100).toFixed(2) + "%", ["Meta", "Google"])),
     );
 
     const pick = dim => (R.tags[dim] || []).filter(e => e.cost_per_trial != null).map(e => ({ label: e.value, value: e.cost_per_trial }));
