@@ -20,7 +20,7 @@ from collections import defaultdict
 from pathlib import Path
 
 TAG_DIMS = ("concept", "hook", "format", "audience")
-SUM_FIELDS = ("spend", "impressions", "reach", "three_sec_views", "clicks", "trials", "paying_customers")
+SUM_FIELDS = ("spend", "impressions", "reach", "three_sec_views", "clicks", "trials")
 
 FREQ_RISE_THRESHOLD = 0.15  # frequency up 15%+ week over week
 C2T_DROP_THRESHOLD = 0.15   # click-to-trial down 15%+ week over week
@@ -53,15 +53,13 @@ def kpis(t) -> dict:
         "ctr": safe_div(t["clicks"], t["impressions"]),
         "click_to_trial": safe_div(t["trials"], t["clicks"]),
         "trial_cpa": safe_div(t["spend"], t["trials"]),
-        "cost_per_paying_customer": safe_div(t["spend"], t["paying_customers"]),
         "frequency": safe_div(t["impressions"], t["reach"]),
     }
 
 
 FORMULAS = [
     {"name": "Cost per trial", "formula": "Spend ÷ Trials"},
-    {"name": "Trial-to-paid rate", "formula": "Paying customers ÷ Trials"},
-    {"name": "Cost per paying customer", "formula": "Spend ÷ Paying customers  (= cost per trial ÷ trial-to-paid rate)"},
+    {"name": "CTR", "formula": "Clicks ÷ Impressions"},
 ]
 
 
@@ -335,9 +333,7 @@ def window_view(report: dict, rows: list) -> dict:
             "campaign": ad_rows[0]["campaign"],
             "spend": round(t["spend"], 2),
             "trials": round(t["trials"]),
-            "paying_customers": round(t["paying_customers"]),
             "trial_cpa": k["trial_cpa"],
-            "cost_per_paying_customer": k["cost_per_paying_customer"],
             "index": idx,
             "hook_rate": k["hook_rate"],
             "click_to_trial": k["click_to_trial"],
@@ -401,6 +397,7 @@ def window_view(report: dict, rows: list) -> dict:
 
     report["insights"].append({"title": "90-day benchmark",
                                "text": f"Over {len(weeks)} weeks, blended trial CPA was ${bench['trial_cpa']:.2f} on ${bench['spend']:,.0f} spend."})
+    bench["impressions"] = round(_sum(rows)["impressions"])
     report["window"] = {"from": weeks[0], "to": weeks[-1], "weeks": len(weeks), "benchmark": bench}
     report["scorecard"] = scorecard
     report["tags_90d"] = {d: tag_window(d) for d in ("hook", "format", "audience")}
@@ -419,25 +416,22 @@ def _group(rows, key_fn):
 
 
 def platform_view(report: dict, rows: list) -> dict:
-    """Platform, campaign and concept breakdowns, with cost per paying customer and an index against the 90-day benchmark."""
+    """Platform, campaign and concept breakdowns, with trial CPA and an index against the 90-day benchmark."""
     total = _sum(rows)
     bench = kpis(total)
-    bench_cpp = bench["cost_per_paying_customer"]
+    bench_cpa = bench["trial_cpa"]
 
     def line(labels, t, ad_count):
         k = kpis(t)
-        cpp = k["cost_per_paying_customer"]
+        cpa = k["trial_cpa"]
         return {
             **labels,
             "ads": ad_count,
             "spend": k["spend"],
             "share_of_spend": safe_div(t["spend"], total["spend"]),
             "trials": round(t["trials"]),
-            "paying_customers": round(t["paying_customers"]),
-            "trial_cpa": k["trial_cpa"],
-            "trial_to_paid": safe_div(t["paying_customers"], t["trials"]),
-            "cost_per_paying_customer": cpp,
-            "index": round(cpp / bench_cpp, 2) if cpp and bench_cpp else None,
+            "trial_cpa": cpa,
+            "index": round(cpa / bench_cpa, 2) if cpa and bench_cpa else None,
         }
 
     agg, ads = _group(rows, lambda r: r["platform"])
@@ -450,9 +444,8 @@ def platform_view(report: dict, rows: list) -> dict:
 
     agg, ads = _group(rows, lambda r: (r["platform"], r["concept"]))
     concepts = [line({"platform": p, "concept": c}, agg[(p, c)], len(ads[(p, c)])) for p, c in agg]
-    concepts.sort(key=lambda e: (e["cost_per_paying_customer"] is None, e["cost_per_paying_customer"] or 0))
+    concepts.sort(key=lambda e: (e["trial_cpa"] is None, e["trial_cpa"] or 0))
 
-    report["window"]["benchmark"]["paying_customers"] = round(total["paying_customers"])
     report["window"]["benchmark"]["trials"] = round(total["trials"])
     report["formulas"] = FORMULAS
     report["platforms"] = platforms

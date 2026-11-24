@@ -75,12 +75,9 @@
 
   function renderKpis() {
     const cards = [
-      ["Cost per paying customer", fmt.money(B.cost_per_paying_customer), true],
-      ["Paying customers, 90 days", fmt.int(B.paying_customers)],
-      ["Spend, 90 days", fmt.money0(B.spend)],
-      ["Trial CPA, 90 days", fmt.money(B.trial_cpa)],
-      ["Click-to-trial, 90 days", fmt.pct(B.click_to_trial)],
-      ["Fatigue alerts this week", R.alerts.length],
+      ["CPA (trial CPA), 90 days", fmt.money(B.trial_cpa), true],
+      ["Click-to-trial, 90 days", fmt.pct(B.click_to_trial), true],
+      ["CTR, 90 days", fmt.pct(B.ctr), true],
     ];
     document.getElementById("kpis").replaceChildren(...cards.map(([name, value, primary]) =>
       h("div", { class: primary ? "card card-primary" : "card" },
@@ -89,15 +86,21 @@
   }
 
   function renderFormulas() {
-    const example = `${fmt.money0(B.spend)} ÷ ${fmt.int(B.paying_customers)} paying customers = ${fmt.money(B.cost_per_paying_customer)}`;
+    const cpa = `${fmt.money0(B.spend)} ÷ ${fmt.int(B.trials)} trials = ${fmt.money(B.trial_cpa)}`;
+    const c2t = `${fmt.int(B.trials)} trials ÷ ${fmt.int(B.clicks)} clicks = ${fmt.pct(B.click_to_trial)}`;
+    const ctr = `${fmt.int(B.clicks)} clicks ÷ ${fmt.int(B.impressions)} impressions = ${fmt.pct(B.ctr)}`;
     document.getElementById("formulas").replaceChildren(
-      h("ul", { class: "formulas" }, R.formulas.map(f =>
-        h("li", {}, h("strong", { text: f.name + ": " }), f.formula))),
-      h("p", { class: "example", text: "Worked example, 90 days: " + example }));
+      h("details", { class: "calc" },
+        h("summary", { text: "How the numbers are calculated (click to expand)" }),
+        h("ul", { class: "formulas" }, R.formulas.map(f =>
+          h("li", {}, h("strong", { text: f.name + ": " }), f.formula))),
+        h("p", { class: "example", text: "CPA, 90 days: " + cpa }),
+        h("p", { class: "example", text: "Click-to-trial, 90 days: " + c2t }),
+        h("p", { class: "example", text: "CTR, 90 days: " + ctr })));
   }
 
   function renderScorecard() {
-    const head = ["Creative", "Platform · campaign", "Concept", "Spend", "Trials", "Paying", "Trial CPA", "Cost per paying customer", "Index", "Click-to-trial", "Frequency", "CPA trend, last 3 wks", "Verdict", "Why"];
+    const head = ["Creative", "Platform · campaign", "Concept", "Spend", "Trials", "Trial CPA", "Index", "Click-to-trial", "Frequency", "CPA trend, last 3 wks", "Verdict", "Why"];
     const pill = v => h("span", { class: "pill pill-" + v.toLowerCase().replace(/ /g, "-"), text: v });
     const body = R.scorecard.map(s => h("tr", {},
       h("td", { class: "tag", text: s.value }),
@@ -105,9 +108,7 @@
       h("td", { class: "tags", text: label(s.tags.concept) }),
       h("td", { text: fmt.money0(s.spend) }),
       h("td", { text: fmt.int(s.trials) }),
-      h("td", { text: fmt.int(s.paying_customers) }),
-      h("td", { text: fmt.money(s.trial_cpa) }),
-      h("td", { class: "strong", text: fmt.money(s.cost_per_paying_customer) }),
+      h("td", { class: "strong", text: fmt.money(s.trial_cpa) }),
       h("td", { class: badIfIndexUp(s.index), text: fmt.index(s.index) }),
       h("td", { text: fmt.pct(s.click_to_trial) }),
       h("td", { text: fmt.num(s.frequency) }),
@@ -118,17 +119,14 @@
   }
 
   function renderPlatforms() {
-    const head = ["Platform", "Ads", "Spend", "Share of spend", "Trials", "Paying customers", "Cost per trial", "Trial-to-paid", "Cost per paying customer", "Index"];
+    const head = ["Platform", "Ads", "Spend", "Share of spend", "Trials", "Trial CPA", "Index"];
     const body = R.platforms.map(p => h("tr", {},
       h("td", { class: "tag", text: p.platform }),
       h("td", { text: fmt.int(p.ads) }),
       h("td", { text: fmt.money0(p.spend) }),
       h("td", { text: fmt.pct(p.share_of_spend) }),
       h("td", { text: fmt.int(p.trials) }),
-      h("td", { text: fmt.int(p.paying_customers) }),
-      h("td", { text: fmt.money(p.trial_cpa) }),
-      h("td", { text: fmt.pct(p.trial_to_paid) }),
-      h("td", { class: "strong", text: fmt.money(p.cost_per_paying_customer) }),
+      h("td", { class: "strong", text: fmt.money(p.trial_cpa) }),
       h("td", { class: badIfIndexUp(p.index), text: fmt.index(p.index) })));
     const campaigns = R.campaigns.map(c => h("tr", {},
       h("td", { class: "tag", text: c.platform + " · " + c.campaign }),
@@ -136,30 +134,24 @@
       h("td", { text: fmt.money0(c.spend) }),
       h("td", { text: fmt.pct(c.share_of_spend) }),
       h("td", { text: fmt.int(c.trials) }),
-      h("td", { text: fmt.int(c.paying_customers) }),
-      h("td", { text: fmt.money(c.trial_cpa) }),
-      h("td", { text: fmt.pct(c.trial_to_paid) }),
-      h("td", { class: "strong", text: fmt.money(c.cost_per_paying_customer) }),
+      h("td", { class: "strong", text: fmt.money(c.trial_cpa) }),
       h("td", { class: badIfIndexUp(c.index), text: fmt.index(c.index) })));
     document.getElementById("platforms").replaceChildren(
       h("h3", { text: "By platform" }),
-      table(["Platform", "Ads", "Spend", "Share of spend", "Trials", "Paying customers", "Cost per trial", "Trial-to-paid", "Cost per paying customer", "Index"], body),
+      table(head, body),
       h("h3", { text: "By campaign" }),
-      table(["Campaign", "Ads", "Spend", "Share of spend", "Trials", "Paying customers", "Cost per trial", "Trial-to-paid", "Cost per paying customer", "Index"], campaigns));
+      table(["Campaign", "Ads", "Spend", "Share of spend", "Trials", "Trial CPA", "Index"], campaigns));
   }
 
   function renderConcepts() {
-    const head = ["Platform", "Concept (ad group or creative type)", "Ads", "Spend", "Trials", "Paying customers", "Cost per trial", "Trial-to-paid", "Cost per paying customer", "Index"];
+    const head = ["Platform", "Concept (ad group or creative type)", "Ads", "Spend", "Trials", "Trial CPA", "Index"];
     const body = R.concepts.map(c => h("tr", {},
       h("td", { class: "tag", text: c.platform }),
       h("td", { class: "tags", text: label(c.concept) }),
       h("td", { text: fmt.int(c.ads) }),
       h("td", { text: fmt.money0(c.spend) }),
       h("td", { text: fmt.int(c.trials) }),
-      h("td", { text: fmt.int(c.paying_customers) }),
-      h("td", { text: fmt.money(c.trial_cpa) }),
-      h("td", { text: fmt.pct(c.trial_to_paid) }),
-      h("td", { class: "strong", text: fmt.money(c.cost_per_paying_customer) }),
+      h("td", { class: "strong", text: fmt.money(c.trial_cpa) }),
       h("td", { class: badIfIndexUp(c.index), text: fmt.index(c.index) })));
     document.getElementById("concepts").replaceChildren(table(head, body));
   }
@@ -189,7 +181,9 @@
 
   // Horizontal bars; lowest value green, highest red.
   function barChart(title, items, fmtV, height) {
-    const VW = 640, rowH = height || 24, L = 260, RM = 80, T = 8;
+    const VW = 640, rowH = height || 24, RM = 80, T = 8;
+    const longest = Math.max(0, ...items.map(i => String(i.label).length));
+    const L = Math.min(340, Math.max(110, longest * 6.8 + 16));
     const VH = T + items.length * rowH + 6;
     const vals = items.map(i => i.value).filter(v => v != null);
     const max = Math.max(...vals) || 1, lo = Math.min(...vals), hi = Math.max(...vals);
@@ -210,16 +204,16 @@
   function renderCharts() {
     const tr = R.trend;
     document.getElementById("trend").replaceChildren(
-      lineChart("Cost per paying customer by week", tr.map(t => ({ x: t.week, y: t.cost_per_paying_customer })), v => "$" + v.toFixed(1)),
       lineChart("Trial CPA by week", tr.map(t => ({ x: t.week, y: t.trial_cpa })), v => "$" + v.toFixed(2)),
       lineChart("Click-to-trial by week", tr.map(t => ({ x: t.week, y: t.click_to_trial })), v => (v * 100).toFixed(1) + "%"),
+      lineChart("CTR by week", tr.map(t => ({ x: t.week, y: t.ctr })), v => (v * 100).toFixed(2) + "%"),
       lineChart("Frequency by week", tr.map(t => ({ x: t.week, y: t.frequency })), v => v.toFixed(2)));
 
     const conceptItems = R.concepts
-      .filter(c => c.cost_per_paying_customer != null)
-      .map(c => ({ label: c.platform + " · " + label(c.concept), value: c.cost_per_paying_customer }));
+      .filter(c => c.trial_cpa != null)
+      .map(c => ({ label: c.platform + " · " + label(c.concept), value: c.trial_cpa }));
     document.getElementById("concept-chart").replaceChildren(
-      barChart("Cost per paying customer by concept, 90 days (green = lowest, red = highest)", conceptItems, fmt.money, 26));
+      barChart("Trial CPA by concept, 90 days (green = lowest, red = highest)", conceptItems, fmt.money, 26));
 
     const pick = dim => R.tags_90d[dim].filter(e => e.trial_cpa != null).map(e => ({ label: e.value, value: e.trial_cpa }));
     document.getElementById("tags").replaceChildren(
@@ -266,7 +260,6 @@
   function renderNotes() {
     const notes = [
       "Mock data, generated by agent/make_mock_data.py. Not connected to any ad platform or to paid-customer records.",
-      "Paying customers are a mock count. Replace them with the billing system's paid conversions before using these numbers.",
       "Google search has no 3-second view metric, so hook rate is blank for Google rows (not 0%). Hook and format charts mix both platforms; compare within a platform.",
       "Verdicts, indexes and briefs are rule-based (thresholds in agent/creative_report.py), not a model.",
     ];

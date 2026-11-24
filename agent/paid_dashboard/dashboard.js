@@ -64,12 +64,9 @@
 
   function renderKpis() {
     const cards = [
-      ["Cost per trial", fmt.money(B.cost_per_trial), true],
-      ["Trials (PostHog)", fmt.int(B.trials)],
+      ["CPA (cost per trial)", fmt.money(B.cost_per_trial), true],
       ["Click-to-trial rate", fmt.pct(B.click_to_trial), true],
-      ["Spend", fmt.money0(B.spend)],
-      ["Clicks", fmt.int(B.clicks)],
-      ["Fatigue alerts this week", R.alerts.length],
+      ["CTR", fmt.pct(B.ctr), true],
     ];
     document.getElementById("kpis").replaceChildren(...cards.map(([name, value, primary]) =>
       h("div", { class: primary ? "card card-primary" : "card" },
@@ -80,11 +77,15 @@
   function renderFormulas() {
     const example = `${fmt.money0(B.spend)} ÷ ${fmt.int(B.trials)} trials = ${fmt.money(B.cost_per_trial)}`;
     const ctr = `${fmt.int(B.trials)} trials ÷ ${fmt.int(B.clicks)} clicks = ${fmt.pct(B.click_to_trial)}`;
+    const ctrEx = `${fmt.int(B.clicks)} clicks ÷ ${fmt.int(B.impressions)} impressions = ${fmt.pct(B.ctr)}`;
     document.getElementById("formulas").replaceChildren(
-      h("ul", { class: "formulas" }, R.formulas.map(f => h("li", {}, h("strong", { text: f.name + ": " }), f.formula))),
-      h("p", { class: "example", text: "Worked example, all paid channels: " + example }),
-      h("p", { class: "example", text: "Click-to-trial, all paid channels: " + ctr }),
-      h("p", { class: "note", text: `${fmt.int(B.unattributed_trials)} of ${fmt.int(B.total_signups)} signups (${fmt.pct(B.unattributed_trials / B.total_signups)}) came from organic or direct and are not in cost per trial.` }));
+      h("details", { class: "calc" },
+        h("summary", { text: "How the numbers are calculated (click to expand)" }),
+        h("ul", { class: "formulas" }, R.formulas.map(f => h("li", {}, h("strong", { text: f.name + ": " }), f.formula))),
+        h("p", { class: "example", text: "CPA, all paid channels: " + example }),
+        h("p", { class: "example", text: "Click-to-trial, all paid channels: " + ctr }),
+        h("p", { class: "example", text: "CTR, all paid channels: " + ctrEx }),
+        h("p", { class: "note", text: `${fmt.int(B.unattributed_trials)} of ${fmt.int(B.total_signups)} signups (${fmt.pct(B.unattributed_trials / B.total_signups)}) came from organic or direct and are not in CPA.` })));
   }
 
   function renderPlatforms() {

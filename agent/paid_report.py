@@ -56,6 +56,7 @@ PH_SOURCE = {"Meta": "facebook", "Google": "google"}
 FORMULAS = [
     {"name": "Cost per trial", "formula": "Spend ÷ Trials"},
     {"name": "Click-to-trial rate", "formula": "Trials ÷ Clicks"},
+    {"name": "CTR (click-through rate)", "formula": "Clicks ÷ Impressions"},
     {"name": "Trial source (channel totals)", "formula": "PostHog trial signups by utm_source: facebook for Meta, google for Google"},
     {"name": "Trial source (campaign and creative)", "formula": "Platform-reported trials: Meta reported, Google conversions"},
 ]
@@ -122,6 +123,7 @@ def build(data: dict, mapping: dict) -> dict:
     meta_rep = sum(r["Trials (Meta reported)"] for r in md)
     goo_spend = sum(r["Spend ($)"] for r in gd)
     goo_clicks = sum(r["Clicks"] for r in gd)
+    all_impr = sum(r["Impressions"] for r in md) + sum(r["Impressions"] for r in gd)
     goo_rep = sum(r["Conversions (Google reported)"] for r in gd)
 
     meta_ch = totals(meta_spend, meta_clicks, ph_src["facebook"])
@@ -408,7 +410,7 @@ def build(data: dict, mapping: dict) -> dict:
 
     return {
         "window": {"from": start.isoformat(), "to": end.isoformat(), "days": days, "weeks": len(weeks),
-                   "benchmark": {**paid, "unattributed_trials": round(unattributed), "total_signups": round(total_signups)}},
+                   "benchmark": {**paid, "impressions": round(all_impr), "ctr": ratio(paid["clicks"], all_impr), "unattributed_trials": round(unattributed), "total_signups": round(total_signups)}},
         "latest_week": weeks[-1],
         "benchmarks": {
             "meta": {"cost_per_trial": meta_bench_cpt,

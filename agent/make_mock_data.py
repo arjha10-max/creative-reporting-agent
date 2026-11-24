@@ -19,7 +19,7 @@ from pathlib import Path
 WEEKS = [f"2026-W{n}" for n in range(34, 47)]  # 13 weeks = the last 90 days
 
 # name, platform, campaign, base_impressions_per_week, base_frequency, base_ctr, base_click_to_trial,
-# hook_rate (0 where the platform has no 3-second metric), cpm, paid_rate (paying customers per trial), fatigued
+# hook_rate (0 where the platform has no 3-second metric), cpm, fatigued
 ADS = [
     # Google, Non-brand campaign: one ad group per core category
     ("AISearchVisibility_Keyword_RSA_Marketer_v1", "Google", "Non-brand search", 40000, 1.3, 0.060, 0.10, 0.0, 12.0, 0.30, False),
@@ -43,7 +43,7 @@ ADS = [
 
 FIELDS = [
     "week", "ad_name", "platform", "campaign", "spend", "impressions", "reach",
-    "three_sec_views", "clicks", "trials", "paying_customers",
+    "three_sec_views", "clicks", "trials",
 ]
 
 
@@ -78,7 +78,6 @@ def simulate(rng: random.Random):
                 "three_sec_views": round(imp * hook * noise()) if hook else 0,
                 "clicks": round(clicks),
                 "trials": round(trials),
-                "paying_customers": round(trials * paid * rng.uniform(0.9, 1.1)),
             })
     return rows
 

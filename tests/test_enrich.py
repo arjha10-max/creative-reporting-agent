@@ -27,9 +27,9 @@ class Enrich(unittest.TestCase):
         self.assertEqual(verdicts["UGC_Problem_Video15_GenZ_v1"], "Pause")
         self.assertEqual(verdicts["AISearchVisibility_Keyword_RSA_Marketer_v1"], "Scale")
 
-    def test_cost_per_paying_customer_is_spend_over_paying_customers(self):
+    def test_trial_cpa_is_spend_over_trials(self):
         b = self.report["window"]["benchmark"]
-        self.assertAlmostEqual(b["cost_per_paying_customer"], b["spend"] / b["paying_customers"], places=2)
+        self.assertAlmostEqual(b["trial_cpa"], b["spend"] / b["trials"], places=2)
 
     def test_platform_and_concept_breakdowns(self):
         platforms = {p["platform"] for p in self.report["platforms"]}
