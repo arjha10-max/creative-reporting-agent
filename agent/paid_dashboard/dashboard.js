@@ -211,12 +211,7 @@
         { cls: "meta", points: tr.map(t => ({ x: t.week, y: t.meta_ctr })) },
         { cls: "google", points: tr.map(t => ({ x: t.week, y: t.google_ctr })) },
       ], v => (v * 100).toFixed(2) + "%", ["Meta", "Google"]),
-      lineChart("Blended cost per trial by week", [
-        { cls: "meta", points: tr.map(t => ({ x: t.week, y: t.cost_per_trial })) },
-      ], v => "$" + v.toFixed(0)),
-      lineChart("Spend by week", [
-        { cls: "meta", points: tr.map(t => ({ x: t.week, y: t.spend })) },
-      ], v => "$" + Math.round(v).toLocaleString("en-CA")));
+    );
 
     const pick = dim => (R.tags[dim] || []).filter(e => e.cost_per_trial != null).map(e => ({ label: e.value, value: e.cost_per_trial }));
     const campaignItems = R.campaigns.filter(c => c.cost_per_trial != null).map(c => ({ label: c.campaign, value: c.cost_per_trial }));
