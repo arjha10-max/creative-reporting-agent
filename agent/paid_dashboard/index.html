@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Paid performance: creative reporting one-pager</title>
+  <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+  <header>
+    <div>
+      <h1>Paid performance: creative reporting one-pager</h1>
+      <p class="sub" id="window"></p>
+    </div>
+    <span class="badge">CONFIDENTIAL DATA</span>
+  </header>
+
+  <main>
+    <section class="kpis" id="kpis"></section>
+
+    <section>
+      <h2>How the numbers are calculated</h2>
+      <div id="formulas"></div>
+    </section>
+
+    <section>
+      <h2>Platform and campaign</h2>
+      <p class="hint">Channel totals use PostHog trial signups. Campaign rows use each platform's own trial count, so they rank campaigns but do not add up to the channel total.</p>
+      <div id="platforms"></div>
+    </section>
+
+    <section>
+      <h2>Creative concept breakdown</h2>
+      <p class="hint">Meta concepts come from the proposed ad-name map (needs your sign-off). Google concepts are campaign types, because Google has no ad-group data in the workbook.</p>
+      <div id="concepts"></div>
+      <div id="concept-chart" class="mt"></div>
+    </section>
+
+    <section>
+      <h2>Creative scorecard</h2>
+      <p class="hint">Each Meta creative against the Meta benchmark. Verdicts: Pause, Refresh, Scale, Keep, Too little data, Paused.</p>
+      <div id="scorecard"></div>
+      <p class="note" id="scorecard-note"></p>
+    </section>
+
+    <section>
+      <h2>Trend and change log</h2>
+      <div class="chart-grid" id="trend"></div>
+      <div class="mt" id="changes"></div>
+    </section>
+
+    <section>
+      <h2>Hook, format and campaign</h2>
+      <p class="hint">Cost per trial by family. Green is the cheapest in each chart.</p>
+      <div class="chart-grid three" id="tags"></div>
+    </section>
+
+    <section>
+      <h2>Recommendations</h2>
+      <div class="two-col">
+        <div>
+          <h3>Key numbers</h3>
+          <div id="insights"></div>
+        </div>
+        <div>
+          <h3>Actions</h3>
+          <div id="recs"></div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Fatigue alerts this week</h2>
+      <p class="hint">Rule: frequency up 15% or more week over week while click-to-trial falls 15% or more.</p>
+      <div id="alerts"></div>
+    </section>
+
+    <section class="scope">
+      <h2>Data and limits</h2>
+      <div id="notes"></div>
+    </section>
+  </main>
+
+  <script src="report.js"></script>
+  <script src="dashboard.js"></script>
+</body>
+</html>

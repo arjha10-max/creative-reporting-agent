@@ -1,3 +1,8 @@
 __pycache__/
 *.pyc
 .DS_Store
+data/Paid_Performance_Assessment_Data.xlsx
+data/ad_name_map.csv
+data/paid-report.js
+docs/paid-*
+data/paid-dashboard.html
