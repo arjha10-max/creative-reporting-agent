@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Creative Reporting: 90-day one-pager (demo)</title>
+  <title>Creative Reporting: 13-week one-pager (demo)</title>
   <style>
 :root {
   --bg: #f6f7f9;
@@ -138,7 +138,7 @@ details.calc[open] summary { margin-bottom: 8px; }
 <body>
   <header>
     <div>
-      <h1>Creative reporting: 90-day one-pager</h1>
+      <h1>Creative reporting: 13-week one-pager</h1>
       <p class="sub" id="window"></p>
     </div>
     <span class="badge">MOCK DATA</span>
@@ -154,7 +154,7 @@ details.calc[open] summary { margin-bottom: 8px; }
 
     <section>
       <h2>Platform and campaign</h2>
-      <p class="hint">Google (Non-brand and Brand) against Meta. Index = trial CPA ÷ 90-day benchmark (below 1 is cheaper).</p>
+      <p class="hint">Google (Non-brand and Brand) against Meta. Index = trial CPA ÷ 13-week benchmark (below 1 is cheaper).</p>
       <div id="platforms"></div>
     </section>
 
@@ -167,17 +167,17 @@ details.calc[open] summary { margin-bottom: 8px; }
 
     <section>
       <h2>Creative scorecard</h2>
-      <p class="hint">Each creative against the 90-day benchmark. Verdicts: Pause, Refresh, Scale, Keep, Too little data.</p>
+      <p class="hint">Each creative against the 13-week benchmark. Verdicts: Pause, Refresh, Scale, Keep, Too little data.</p>
       <div id="scorecard"></div>
     </section>
 
     <section>
-      <h2>Trend, last 90 days</h2>
+      <h2>Trend, last 13 weeks</h2>
       <div class="chart-grid" id="trend"></div>
     </section>
 
     <section>
-      <h2>Hook, format and audience, last 90 days</h2>
+      <h2>Hook, format and audience, last 13 weeks</h2>
       <p class="hint">Trial CPA by tag family. Green is the cheapest in each chart.</p>
       <div class="chart-grid three" id="tags"></div>
     </section>
@@ -208,7 +208,6 @@ details.calc[open] summary { margin-bottom: 8px; }
     </section>
   </main>
 
-  <script src="report-90d.js?v=6"></script>
   <script>
 window.REPORT_DATA = {
   "latest_week": "2026-W46",
@@ -3341,7 +3340,7 @@ window.REPORT_DATA = {
       "text": "UGC_Question_Video6_GenZ_v2 holds 39.8% of impressions past the 3-second mark."
     },
     {
-      "title": "90-day benchmark",
+      "title": "13-week benchmark",
       "text": "Over 13 weeks, blended trial CPA was $3.36 on $66,927 spend."
     }
   ],
@@ -3386,31 +3385,31 @@ window.REPORT_DATA = {
       "priority": "medium",
       "title": "Brief next: Compare \u00b7 RSA \u00b7 Marketer",
       "action": "Build the next creative on this hook, format and audience combination.",
-      "why": "90-day trial CPA $1.43, 0.43x benchmark, from 2719 trials."
+      "why": "13-week trial CPA $1.43, 0.43x benchmark, from 2719 trials."
     },
     {
       "priority": "medium",
       "title": "Brief next: Keyword \u00b7 RSA \u00b7 Marketer",
       "action": "Build the next creative on this hook, format and audience combination.",
-      "why": "90-day trial CPA $2.03, 0.60x benchmark, from 3652 trials."
+      "why": "13-week trial CPA $2.03, 0.60x benchmark, from 3652 trials."
     },
     {
       "priority": "medium",
       "title": "Brief next: Proof \u00b7 RSA \u00b7 Agency",
       "action": "Build the next creative on this hook, format and audience combination.",
-      "why": "90-day trial CPA $2.17, 0.65x benchmark, from 2015 trials."
+      "why": "13-week trial CPA $2.17, 0.65x benchmark, from 2015 trials."
     },
     {
       "priority": "medium",
       "title": "Retire Stat \u00b7 Video15 \u00b7 Millennials from new briefs",
       "action": "Do not brief this combination again until a new hook changes the result.",
-      "why": "90-day trial CPA $9.59, 2.85x benchmark."
+      "why": "13-week trial CPA $9.59, 2.85x benchmark."
     },
     {
       "priority": "medium",
       "title": "Retire Stat \u00b7 Static \u00b7 Millennials from new briefs",
       "action": "Do not brief this combination again until a new hook changes the result.",
-      "why": "90-day trial CPA $11.34, 3.37x benchmark."
+      "why": "13-week trial CPA $11.34, 3.37x benchmark."
     },
     {
       "priority": "low",
@@ -4188,7 +4187,7 @@ window.REPORT_DATA = {
 };
 
 </script>
-<script>
+  <script>
 (function () {
   "use strict";
 
@@ -4266,10 +4265,10 @@ window.REPORT_DATA = {
 
   function renderKpis() {
     const cards = [
-      ["CPA (trial CPA), 90 days", fmt.money(B.trial_cpa), true],
-      ["Click-to-trial, 90 days", fmt.pct(B.click_to_trial), true],
-      ["CTR, 90 days", fmt.pct(B.ctr), true],
-      ["Spend, 90 days", fmt.money0(B.spend)],
+      ["CPA (trial CPA), 13 weeks", fmt.money(B.trial_cpa), true],
+      ["Click-to-trial, 13 weeks", fmt.pct(B.click_to_trial), true],
+      ["CTR, 13 weeks", fmt.pct(B.ctr), true],
+      ["Spend, 13 weeks", fmt.money0(B.spend)],
     ];
     document.getElementById("kpis").replaceChildren(...cards.map(([name, value, primary]) =>
       h("div", { class: primary ? "card card-primary" : "card" },
@@ -4286,9 +4285,9 @@ window.REPORT_DATA = {
         h("summary", { text: "How the numbers are calculated (click to expand)" }),
         h("ul", { class: "formulas" }, R.formulas.map(f =>
           h("li", {}, h("strong", { text: f.name + ": " }), f.formula))),
-        h("p", { class: "example", text: "CPA, 90 days: " + cpa }),
-        h("p", { class: "example", text: "Click-to-trial, 90 days: " + c2t }),
-        h("p", { class: "example", text: "CTR, 90 days: " + ctr })));
+        h("p", { class: "example", text: "CPA, 13 weeks: " + cpa }),
+        h("p", { class: "example", text: "Click-to-trial, 13 weeks: " + c2t }),
+        h("p", { class: "example", text: "CTR, 13 weeks: " + ctr })));
   }
 
   function renderScorecard() {
@@ -4405,7 +4404,7 @@ window.REPORT_DATA = {
       .filter(c => c.trial_cpa != null)
       .map(c => ({ label: c.platform + " · " + label(c.concept), value: c.trial_cpa }));
     document.getElementById("concept-chart").replaceChildren(
-      barChart("Trial CPA by concept, 90 days (green = lowest, red = highest)", conceptItems, fmt.money, 26));
+      barChart("Trial CPA by concept, 13 weeks (green = lowest, red = highest)", conceptItems, fmt.money, 26));
 
     const pick = dim => R.tags_90d[dim].filter(e => e.trial_cpa != null).map(e => ({ label: e.value, value: e.trial_cpa }));
     document.getElementById("tags").replaceChildren(
@@ -4424,7 +4423,7 @@ window.REPORT_DATA = {
     root.replaceChildren(...top.map((c, i) => h("div", { class: "brief" },
       h("div", { class: "brief-rank", text: "#" + (i + 1) + " combination" }),
       h("div", { class: "brief-title", text: c.label }),
-      h("p", { class: "brief-line", text: fmt.money(c.trial_cpa) + " trial CPA · " + fmt.index(c.index) + " benchmark · " + fmt.int(c.trials) + " trials, 90 days" }),
+      h("p", { class: "brief-line", text: fmt.money(c.trial_cpa) + " trial CPA · " + fmt.index(c.index) + " benchmark · " + fmt.int(c.trials) + " trials, 13 weeks" }),
       h("p", { class: "brief-line hint", text: "Next creative: keep this hook, format and audience; vary the opening frame and the first line." }))));
   }
 

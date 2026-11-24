@@ -75,10 +75,10 @@
 
   function renderKpis() {
     const cards = [
-      ["CPA (trial CPA), 90 days", fmt.money(B.trial_cpa), true],
-      ["Click-to-trial, 90 days", fmt.pct(B.click_to_trial), true],
-      ["CTR, 90 days", fmt.pct(B.ctr), true],
-      ["Spend, 90 days", fmt.money0(B.spend)],
+      ["CPA (trial CPA), 13 weeks", fmt.money(B.trial_cpa), true],
+      ["Click-to-trial, 13 weeks", fmt.pct(B.click_to_trial), true],
+      ["CTR, 13 weeks", fmt.pct(B.ctr), true],
+      ["Spend, 13 weeks", fmt.money0(B.spend)],
     ];
     document.getElementById("kpis").replaceChildren(...cards.map(([name, value, primary]) =>
       h("div", { class: primary ? "card card-primary" : "card" },
@@ -95,9 +95,9 @@
         h("summary", { text: "How the numbers are calculated (click to expand)" }),
         h("ul", { class: "formulas" }, R.formulas.map(f =>
           h("li", {}, h("strong", { text: f.name + ": " }), f.formula))),
-        h("p", { class: "example", text: "CPA, 90 days: " + cpa }),
-        h("p", { class: "example", text: "Click-to-trial, 90 days: " + c2t }),
-        h("p", { class: "example", text: "CTR, 90 days: " + ctr })));
+        h("p", { class: "example", text: "CPA, 13 weeks: " + cpa }),
+        h("p", { class: "example", text: "Click-to-trial, 13 weeks: " + c2t }),
+        h("p", { class: "example", text: "CTR, 13 weeks: " + ctr })));
   }
 
   function renderScorecard() {
@@ -214,7 +214,7 @@
       .filter(c => c.trial_cpa != null)
       .map(c => ({ label: c.platform + " · " + label(c.concept), value: c.trial_cpa }));
     document.getElementById("concept-chart").replaceChildren(
-      barChart("Trial CPA by concept, 90 days (green = lowest, red = highest)", conceptItems, fmt.money, 26));
+      barChart("Trial CPA by concept, 13 weeks (green = lowest, red = highest)", conceptItems, fmt.money, 26));
 
     const pick = dim => R.tags_90d[dim].filter(e => e.trial_cpa != null).map(e => ({ label: e.value, value: e.trial_cpa }));
     document.getElementById("tags").replaceChildren(
@@ -233,7 +233,7 @@
     root.replaceChildren(...top.map((c, i) => h("div", { class: "brief" },
       h("div", { class: "brief-rank", text: "#" + (i + 1) + " combination" }),
       h("div", { class: "brief-title", text: c.label }),
-      h("p", { class: "brief-line", text: fmt.money(c.trial_cpa) + " trial CPA · " + fmt.index(c.index) + " benchmark · " + fmt.int(c.trials) + " trials, 90 days" }),
+      h("p", { class: "brief-line", text: fmt.money(c.trial_cpa) + " trial CPA · " + fmt.index(c.index) + " benchmark · " + fmt.int(c.trials) + " trials, 13 weeks" }),
       h("p", { class: "brief-line hint", text: "Next creative: keep this hook, format and audience; vary the opening frame and the first line." }))));
   }
 

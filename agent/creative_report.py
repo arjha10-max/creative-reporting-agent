@@ -292,9 +292,9 @@ def _sum(rows_subset):
 
 
 def window_view(report: dict, rows: list) -> dict:
-    """90-day view: benchmark, creative scorecard against it, tag and combo performance, next-brief recommendations.
+    """13-week view: benchmark, creative scorecard against it, tag and combo performance, next-brief recommendations.
 
-    The window is every week in the input (13 weeks = 90 days in the mock data).
+    The window is every week in the input (13 weeks in the mock data).
     """
     weeks = report["weeks"]
     bench = kpis(_sum(rows))
@@ -314,7 +314,7 @@ def window_view(report: dict, rows: list) -> dict:
         freq = ad["latest"]["frequency"]
 
         if t["trials"] < 30:
-            verdict, reason = "Too little data", f"Only {round(t['trials'])} trials in 90 days."
+            verdict, reason = "Too little data", f"Only {round(t['trials'])} trials in 13 weeks."
         elif idx is not None and idx > 1.5 and trend is not None and trend > 0.10:
             verdict, reason = "Pause", f"Trial CPA is {idx:.2f}x the benchmark and rose {trend * 100:.0f}% over the last 3 weeks."
         elif name in alerted:
@@ -387,15 +387,15 @@ def window_view(report: dict, rows: list) -> dict:
     for c in combos[:3]:
         recs.append({"priority": "medium", "title": f"Brief next: {c['label']}",
                      "action": "Build the next creative on this hook, format and audience combination.",
-                     "why": f"90-day trial CPA ${c['trial_cpa']:.2f}, {c['index']:.2f}x benchmark, from {c['trials']} trials."})
+                     "why": f"13-week trial CPA ${c['trial_cpa']:.2f}, {c['index']:.2f}x benchmark, from {c['trials']} trials."})
     for c in [c for c in combos if c["index"] > 1.3][-2:]:
         recs.append({"priority": "medium", "title": f"Retire {c['label']} from new briefs",
                      "action": "Do not brief this combination again until a new hook changes the result.",
-                     "why": f"90-day trial CPA ${c['trial_cpa']:.2f}, {c['index']:.2f}x benchmark."})
+                     "why": f"13-week trial CPA ${c['trial_cpa']:.2f}, {c['index']:.2f}x benchmark."})
     order_p = {"high": 0, "medium": 1, "low": 2}
     report["recommendations"] = sorted(recs, key=lambda r: order_p[r["priority"]])
 
-    report["insights"].append({"title": "90-day benchmark",
+    report["insights"].append({"title": "13-week benchmark",
                                "text": f"Over {len(weeks)} weeks, blended trial CPA was ${bench['trial_cpa']:.2f} on ${bench['spend']:,.0f} spend."})
     bench["impressions"] = round(_sum(rows)["impressions"])
     report["window"] = {"from": weeks[0], "to": weeks[-1], "weeks": len(weeks), "benchmark": bench}
@@ -416,7 +416,7 @@ def _group(rows, key_fn):
 
 
 def platform_view(report: dict, rows: list) -> dict:
-    """Platform, campaign and concept breakdowns, with trial CPA and an index against the 90-day benchmark."""
+    """Platform, campaign and concept breakdowns, with trial CPA and an index against the 13-week benchmark."""
     total = _sum(rows)
     bench = kpis(total)
     bench_cpa = bench["trial_cpa"]

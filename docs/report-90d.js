@@ -3129,7 +3129,7 @@ window.REPORT_DATA = {
       "text": "UGC_Question_Video6_GenZ_v2 holds 39.8% of impressions past the 3-second mark."
     },
     {
-      "title": "90-day benchmark",
+      "title": "13-week benchmark",
       "text": "Over 13 weeks, blended trial CPA was $3.36 on $66,927 spend."
     }
   ],
@@ -3174,31 +3174,31 @@ window.REPORT_DATA = {
       "priority": "medium",
       "title": "Brief next: Compare \u00b7 RSA \u00b7 Marketer",
       "action": "Build the next creative on this hook, format and audience combination.",
-      "why": "90-day trial CPA $1.43, 0.43x benchmark, from 2719 trials."
+      "why": "13-week trial CPA $1.43, 0.43x benchmark, from 2719 trials."
     },
     {
       "priority": "medium",
       "title": "Brief next: Keyword \u00b7 RSA \u00b7 Marketer",
       "action": "Build the next creative on this hook, format and audience combination.",
-      "why": "90-day trial CPA $2.03, 0.60x benchmark, from 3652 trials."
+      "why": "13-week trial CPA $2.03, 0.60x benchmark, from 3652 trials."
     },
     {
       "priority": "medium",
       "title": "Brief next: Proof \u00b7 RSA \u00b7 Agency",
       "action": "Build the next creative on this hook, format and audience combination.",
-      "why": "90-day trial CPA $2.17, 0.65x benchmark, from 2015 trials."
+      "why": "13-week trial CPA $2.17, 0.65x benchmark, from 2015 trials."
     },
     {
       "priority": "medium",
       "title": "Retire Stat \u00b7 Video15 \u00b7 Millennials from new briefs",
       "action": "Do not brief this combination again until a new hook changes the result.",
-      "why": "90-day trial CPA $9.59, 2.85x benchmark."
+      "why": "13-week trial CPA $9.59, 2.85x benchmark."
     },
     {
       "priority": "medium",
       "title": "Retire Stat \u00b7 Static \u00b7 Millennials from new briefs",
       "action": "Do not brief this combination again until a new hook changes the result.",
-      "why": "90-day trial CPA $11.34, 3.37x benchmark."
+      "why": "13-week trial CPA $11.34, 3.37x benchmark."
     },
     {
       "priority": "low",
