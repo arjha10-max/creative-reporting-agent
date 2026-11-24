@@ -125,16 +125,7 @@
       h("td", { class: "strong", text: fmt.money(c.cost_per_trial) }),
       h("td", { text: fmt.pct(c.click_to_trial) }),
       h("td", { class: badIfIndexUp(c.index), text: fmt.index(c.index) })));
-    const bm = R.benchmarks;
-    const callout = h("div", { class: "callout" },
-      h("strong", { text: "What the index compares against (platform benchmark)" }),
-      h("p", { text: `Index = concept cost per trial ÷ its platform benchmark. 1.00x is average. Lower is cheaper.` }),
-      h("ul", {},
-        h("li", { text: `Meta benchmark: ${fmt.money(bm.meta.cost_per_trial)}. ${bm.meta.basis}.` }),
-        h("li", { text: `Google benchmark: ${fmt.money(bm.google.cost_per_trial)}. ${bm.google.basis}.` }),
-        h("li", { text: "Meta concepts are never compared with Google, and the reverse. Benchmarks use platform-reported trials, so they can differ from the PostHog channel cost per trial above." })));
     document.getElementById("concepts").replaceChildren(
-      callout,
       table(["Platform", "Concept (Meta creative concept, or Google campaign type)", "Ads", "Spend", "Clicks", "Trials", "Cost per trial", "Click-to-trial", "Index"], body));
 
     const items = R.concepts
@@ -203,17 +194,12 @@
         { cls: "meta", points: tr.map(t => ({ x: t.week, y: t.meta_cost_per_trial })) },
         { cls: "google", points: tr.map(t => ({ x: t.week, y: t.google_cost_per_trial })) },
       ], v => "$" + v.toFixed(0), ["Meta", "Google"]),
-      lineChart("Click-to-trial rate by week: Meta vs Google", [
-        { cls: "meta", points: tr.map(t => ({ x: t.week, y: t.meta_click_to_trial })) },
-        { cls: "google", points: tr.map(t => ({ x: t.week, y: t.google_click_to_trial })) },
-      ], v => (v * 100).toFixed(2) + "%", ["Meta", "Google"]),
-      lineChart("CTR by week: Meta vs Google", [
-        { cls: "meta", points: tr.map(t => ({ x: t.week, y: t.meta_ctr })) },
-        { cls: "google", points: tr.map(t => ({ x: t.week, y: t.google_ctr })) },
-      ], v => (v * 100).toFixed(2) + "%", ["Meta", "Google"]),
       lineChart("Blended cost per trial by week", [
         { cls: "meta", points: tr.map(t => ({ x: t.week, y: t.cost_per_trial })) },
       ], v => "$" + v.toFixed(0)),
+      lineChart("Click-to-trial rate by week", [
+        { cls: "meta", points: tr.map(t => ({ x: t.week, y: t.click_to_trial })) },
+      ], v => (v * 100).toFixed(2) + "%"),
       lineChart("Spend by week", [
         { cls: "meta", points: tr.map(t => ({ x: t.week, y: t.spend })) },
       ], v => "$" + Math.round(v).toLocaleString("en-CA")));
@@ -224,20 +210,6 @@
       barChart("Hook: cost per trial (Meta)", pick("hook"), fmt.money, 22),
       barChart("Format: cost per trial (Meta)", pick("format"), fmt.money, 22),
       barChart("Campaign: cost per trial (platform-reported)", campaignItems, fmt.money, 22));
-
-    const adBody = R.scorecard.map(s => h("tr", {},
-      h("td", { class: "tag", text: s.value }),
-      h("td", { class: "tags", text: s.campaign }),
-      h("td", { text: s.hook || "–" }),
-      h("td", { text: s.format || "–" }),
-      h("td", { text: fmt.money0(s.spend) }),
-      h("td", { text: fmt.int(s.impressions) }),
-      h("td", { text: fmt.pct(s.ctr) }),
-      h("td", { text: fmt.pct(s.click_to_trial) }),
-      h("td", { class: "strong", text: fmt.money(s.cost_per_trial) })));
-    document.getElementById("tags-by-ad").replaceChildren(
-      h("h3", { text: "Per ad: CTR, click-to-trial and CPA (cost per trial)" }),
-      table(["Ad", "Campaign", "Hook", "Format", "Spend", "Impressions", "CTR", "Click-to-trial", "CPA (cost per trial)"], adBody));
   }
 
   function renderScorecard() {
@@ -259,7 +231,7 @@
       h("td", { class: "why", text: s.reason })));
     document.getElementById("scorecard").replaceChildren(table(head, body));
     document.getElementById("scorecard-note").textContent =
-      `Meta creatives only. Index compares each creative with the Meta benchmark of ${fmt.money(R.benchmarks.meta.cost_per_trial)} (platform-reported trials). Google has no ad-group data, so it has no creative rows.`;
+      "Meta creatives only. Index compares each creative with the Meta benchmark (platform-reported trials). Google has no ad-group data, so it has no creative rows.";
   }
 
   function renderChanges() {
