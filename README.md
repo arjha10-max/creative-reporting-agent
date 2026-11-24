@@ -3,6 +3,8 @@
 A small, honest mock-up of the creative reporting piece of a performance media role.
 It runs on mock data. It is a demo of the logic and the dashboard, not a live integration.
 
+**Front end (public, mock data):** https://arjha10-max.github.io/creative-reporting-agent/
+
 ## What it does
 
 1. **Naming convention.** Every ad name must follow `CONCEPT_HOOK_FORMAT_AUDIENCE_VARIANT`.
